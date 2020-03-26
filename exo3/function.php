@@ -50,6 +50,18 @@ function nbr_caractere($chaine){
     return $nbre;
 }
 
+function lettres($mot){
+    
+    for ($i=0; $i < nbr_caractere($mot) ; $i++) { 
+        if (!(($mot[$i] >= 'a' && $mot[$i] <= 'z') || ($mot[$i] >= 'A' && $mot[$i] <= 'Z'))) {
+            return 1;
+        }
+    }
+
+return 0;
+
+}
+
 
 
 function couleur($couleur){

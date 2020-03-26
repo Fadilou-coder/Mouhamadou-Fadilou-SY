@@ -23,8 +23,25 @@ include('function.php');
             <?php
             for ($i=0; $i < $n; $i++) { 
             ?>
-                   
-                    <input type="text" name="mot<?php echo $i; ?>" value="<?php if (!empty($_POST['mot'.$i]) && nbr_caractere($_POST['mot'.$i])<=20) echo $_POST['mot'.$i]; ?>"/><br/><br/>
+                    <label>
+                        Mot N°<?php echo $i+1;
+                                if (empty($_POST['mot'.$i])) {
+                                    echo "<strong> (Remplir le Champ svp)<strong>";
+                                }
+                                else{
+                                    if (lettres($_POST['mot'.$i])) {
+                                        echo "<strong> (Des lettres uniquement.)<strong>";
+                                    }
+                                    else{
+                                        if (nbr_caractere($_POST['mot'.$i]) > 20) {
+                                            echo "<strong> (Le mot ne doit pas dépasser 20 caractères.)<strong>";
+                                        }
+
+                                    }
+                                }
+                        ?>
+                    </label><br/>
+                    <input type="text" name="mot<?php echo $i; ?>" value="<?php if (!empty($_POST['mot'.$i])) echo $_POST['mot'.$i]; ?>"/><br/><br/>
                     
                 
                 <?php
@@ -36,8 +53,9 @@ include('function.php');
         <?php
             if(isset($_POST['Envoyer'])){
                 $tmp = 1;
+                $tmp1 = 1;
                 for ($i=0; $i < $n ; $i++) { 
-                    if(empty($_POST['mot'.$i])){
+                    if(empty($_POST['mot'.$i]) || lettres($_POST['mot'.$i]) == 0 || nbr_caractere($_POST['mot'.$i]) > 20){
                         $tmp = 0;
                     }
                 }
@@ -58,17 +76,6 @@ include('function.php');
                         }   
                         $test = 0;
                     }
-                    
-                    $j=0;
-                    for ($i=0; $i <compte($mots) ; $i++) { 
-                        if(nbr_caractere($mots[$i])>20){
-                            $j=1;   
-                        }
-                    }
-                    if($j){
-                        echo "<br/><center>Vous devez saisir des mots de 20 caracteres au plus.<br/></center>";
-                    }
-                    else{
                         echo "<center><br/><table border : '1'><tr><td> Les mots saisis sont: </td>";
                         echo "<td>Les mots contenants 'm' : </td></tr>";
                         for ($i=0; $i < compte($mots) ; $i++) { 
@@ -80,12 +87,9 @@ include('function.php');
                 
                         }
                          echo "</table>";
-                        }
+                        
                         
                     
-                }
-                else{
-                    echo "Remplir tous les champs";
                 }
             }
             
