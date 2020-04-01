@@ -53,9 +53,8 @@ include('function.php');
         <?php
             if(isset($_POST['Envoyer'])){
                 $tmp = 1;
-                $tmp1 = 1;
                 for ($i=0; $i < $n ; $i++) { 
-                    if(empty($_POST['mot'.$i]) || lettres($_POST['mot'.$i]) == 0 || nbr_caractere($_POST['mot'.$i]) > 20){
+                    if(empty($_POST['mot'.$i]) || lettres($_POST['mot'.$i]) || nbr_caractere($_POST['mot'.$i]) > 20){
                         $tmp = 0;
                     }
                 }
@@ -90,9 +89,7 @@ include('function.php');
                         
                         
                     
-                }
-            }
-            
+                } 
         }
         else{
             echo "<center>saisir un entier positif</center>";
