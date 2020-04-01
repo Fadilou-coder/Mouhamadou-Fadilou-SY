@@ -16,6 +16,7 @@ include('function.php');
 
 if(isset($_POST['valider'])){
 $texte = $_POST['texte'];
+$phrases = array();
     if (!empty($texte)) {
         $texte = decouper($texte);
         $phrases = array();
