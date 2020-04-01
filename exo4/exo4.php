@@ -18,6 +18,10 @@ if(isset($_POST['valider'])){
 $texte = $_POST['texte'];
     if (!empty($texte)) {
         $texte = decouper($texte);
+        $phrases = array();
+        for ($i=0; $i < nbr_caractere($texte) ; $i++) { 
+            $texte[$i] = enlever_space($texte[$i]);
+        }
         foreach($texte as $key){
             if(phrase_valide($key)){
                 $phrases[] = $key;
@@ -30,8 +34,8 @@ $texte = $_POST['texte'];
 <textarea readonly cols="60" rows="10">
 <?php 
 foreach($phrases as $key){
-    if (nbr_caractere(enlever_space($key))<=200) {
-        echo enlever_space($key);
+    if (nbr_caractere($key)<=200) {
+        echo $key." ";
     }
 }
 ?>

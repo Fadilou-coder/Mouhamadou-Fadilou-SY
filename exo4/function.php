@@ -17,8 +17,9 @@ return $phrases[0];
 }
 
 function enlever_space($phrase){
-
-    $phrase_corrigé = $phrase[0]; 
+    $phrase_corrigé = "";
+    if($phrase[0] != " ")
+        $phrase_corrigé = $phrase[0]; 
     for ($i=1; $i < nbr_caractere($phrase) - 1 ; $i++) { 
         if ($phrase[$i] != " ") {
             $phrase_corrigé .= $phrase[$i];
