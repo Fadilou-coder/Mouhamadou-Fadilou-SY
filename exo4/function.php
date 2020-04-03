@@ -29,8 +29,7 @@ function decouper($texte){
 return $Tphrases;
 }
 
-//  $test = "j'adore le codage. Papa a donné 2.500 à maman et  3.500 à mon frère ? c'est bien de tester!";
-// print_r(decouper($test));
+
 
 function enlever_space($phrase){
     $phrase_corrigé = "";
@@ -51,7 +50,6 @@ function enlever_space($phrase){
 return $phrase_corrigé;
 }
 
-echo enlever_space("l'    école.");
 
 function nbr_caractere($chaine){
     $i=0;
