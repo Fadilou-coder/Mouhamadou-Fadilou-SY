@@ -29,7 +29,7 @@ function decouper($texte){
 return $Tphrases;
 }
 
-// $test = "j'adore le codage. Papa a donné 2.500 à maman 3.500 à frère ? c'est bien de tester!";
+//  $test = "j'adore le codage. Papa a donné 2.500 à maman et  3.500 à mon frère ? c'est bien de tester!";
 // print_r(decouper($test));
 
 function enlever_space($phrase){
@@ -41,7 +41,7 @@ function enlever_space($phrase){
             $phrase_corrigé .= $phrase[$i];
         }
         else{
-            if ($phrase_corrigé[nbr_caractere($phrase_corrigé)-1] != " " && !preg_match("#[,|;|.|?|!|'|-|~|\s]#", $phrase[$i+1])) {
+            if ($phrase_corrigé[nbr_caractere($phrase_corrigé)-1] != " " && !preg_match("#[,|;|.|?|!|'|-|~|\s]#", $phrase[$i+1]) && $phrase_corrigé[nbr_caractere($phrase_corrigé)-1] != "'") {
                 $phrase_corrigé .= $phrase[$i];
             }
         }
@@ -50,6 +50,8 @@ function enlever_space($phrase){
 
 return $phrase_corrigé;
 }
+
+echo enlever_space("l'    école.");
 
 function nbr_caractere($chaine){
     $i=0;
