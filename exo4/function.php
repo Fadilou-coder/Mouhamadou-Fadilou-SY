@@ -1,20 +1,36 @@
 <?php
-function nbr_caractere($chaine){
-    $i=0;
-    while(isset($chaine[$i])){
-        $i++;
-    }
-    return $i;
-}
-
 function phrase_valide($phrase){
     return preg_match("#^[A-Z].*[\.|?|!]$#",$phrase);   
 }
 
+// function decouper($texte){
+//     preg_match_all('/[^.|?|!|\n]*[.|!|?]/', $texte, $phrases);   
+// return $phrases[0];
+// }
+
 function decouper($texte){
-    preg_match_all('/[^.|?|!|\n]*[.|!|?]/', $texte, $phrases);
-return $phrases[0];
+    $Tphrases = array();
+    $phrase = "";
+    for ($i=0; $i < nbr_caractere($texte) ; $i++) { 
+        if($texte[$i] != "." && $texte[$i] != "!" && $texte[$i] != "?"){
+            $phrase .= $texte[$i];
+        }
+        else{
+            if ($texte[$i] == "." && is_numeric($texte[$i-1]) && is_numeric($texte[$i+1])) {
+                $phrase .= $texte[$i];
+            }
+            else{
+                $phrase .= $texte[$i];
+                $Tphrases[] = $phrase;
+                $phrase = "";
+            }
+        }
+    }
+return $Tphrases;
 }
+
+// $test = "j'adore le codage. Papa a donné 2.500 à maman 3.500 à frère ? c'est bien de tester!";
+// print_r(decouper($test));
 
 function enlever_space($phrase){
     $phrase_corrigé = "";
@@ -34,5 +50,14 @@ function enlever_space($phrase){
 
 return $phrase_corrigé;
 }
+
+function nbr_caractere($chaine){
+    $i=0;
+    while(isset($chaine[$i])){
+        $i++;
+    }
+    return $i;
+}
+
 
 ?>

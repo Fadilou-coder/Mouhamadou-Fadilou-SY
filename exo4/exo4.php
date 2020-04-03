@@ -20,12 +20,13 @@ $phrases = array();
     if (!empty($texte)) {
         $texte = decouper($texte);
         $phrases = array();
-        for ($i=0; $i < nbr_caractere($texte) ; $i++) { 
-            $texte[$i] = enlever_space($texte[$i]);
-        }
         foreach($texte as $key){
+            $key = enlever_space($key);
             if(phrase_valide($key)){
                 $phrases[] = $key;
+            }
+            else{
+                $phrases[] = ucfirst($key) ;
             }
         }
 
