@@ -1,6 +1,7 @@
 <?php
 function phrase_valide($phrase){
-    return preg_match("#^[A-Z].*[\.|?|!]$#",$phrase);   
+   return preg_match("#^[A-Z].*[.|?|!]$#",$phrase);
+       
 }
 
 // function decouper($texte){
