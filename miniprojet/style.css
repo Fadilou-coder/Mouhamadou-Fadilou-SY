@@ -51,6 +51,12 @@ body{
     height: 30px;
 }
 
+.error-form{
+    float: left;
+    color: red;
+    margin-left: 6%;
+}
+
 label{
     margin-left: 20px;
     float: left;
@@ -159,13 +165,21 @@ h3{
     font-size: large;
     width: 150px;
 }
+.Enregistrer-qst{
+    height: 50px;
+    background-color: #73DEF0;
+    border-radius: 10px;
+    margin-left: 30%;
+    font-size: large;
+    width: 150px;
+    float: right;
+    margin-right: 1%;
+}
 
 .AjoutReponse{
     height: 50px;
     border-radius: 10px;
-    margin-right: -5%;
-    float : right;
-         
+    float : right;     
 }
 
 .fichier{
@@ -176,6 +190,13 @@ h3{
     margin-right: 10%;
     font-size: large;
     width: 150px;
+}
+.list-courant{
+    background-color: green; 
+    position:absolute; 
+    width:10px; 
+    height:50px; 
+    float:left
 }
 
 /* Page interface Joueur*/
@@ -203,6 +224,17 @@ h3{
 
 }
 
+.btn-suiv{
+    margin-top: 20px;
+    height: 30px; 
+    font-size: large; 
+    float: right; 
+    background-color: #73DEF0;
+    margin-right: 10%;
+    color: white;
+    width: 15%;
+}
+
 .h{
     width: 70%; 
     margin-left: 15%; 
@@ -227,7 +259,7 @@ h3{
     margin-left: 2px;
     font-size: 10px;
     margin-top: 2px;
-    border-radius: 20px;
+    border-radius: 50%;
 }
 
 .deconnexion{
@@ -256,6 +288,51 @@ h3{
     background-color: rgb(233, 233, 233);
     text-align: center;
 }
+
+.list-question{
+    margin-left: 2%;
+    font-size: 170%;
+    line-height: 10px;
+}
+
+.choix-mult{
+    width:4px; 
+    height:4px; 
+    background-color: white;
+    border-color: #73DEF0 ;
+    border-style: solid;
+    position: absolute; 
+    margin-left: 2.5%;
+    margin-top: -3px;
+}
+
+.choix-simple{
+    width:4px; 
+    height:4px; 
+    background-color: white;
+    border-color: #73DEF0 ;
+    border-style: solid;
+    border-radius: 50%;
+    position: absolute; 
+    margin-left: 2.5%;
+    margin-top: -3px;
+}
+.reponse-text{
+    width:30%; 
+    height: 6%; 
+    border-style: solid;
+    background-color: white; 
+    border-color: silver;
+    margin-left: 5%;
+    border-radius: 5px;
+}
+
+.reponse{
+    margin-left: 6.5%;
+    font-size: 75%;
+    line-height: 0;
+}
+
 .pts{
     width: 10%;
     height: 40px;
@@ -293,6 +370,17 @@ h3{
     background-color: white;
 }
 
+.Liste-qst{
+    width: 65%;
+    height:95%; 
+    border-style: solid;
+    border-radius: 10px;
+    margin-right: 2%;
+    border-color: white;
+    float: right;
+    background-color: white;
+}
+
 .MenuAdmin{
     width: 32%;
     margin-left: -1%;
@@ -311,6 +399,43 @@ h3{
     float: right; 
     margin: 0%;
 }
+
+.bordure-bleu{
+    margin-top: 3%;
+    width: 90%;
+    border-style: solid;
+    border-color: #73DEF0;
+    border-radius: 20px;
+    margin-left: 5%;
+    height: 86%;
+}
+
+.bordure-silver{
+    margin-top: 8%;
+    width: 90%;
+    border-style: solid;
+    border-color: silver;
+    border-radius: 20px;
+    margin-left: 5%;
+    height: 77%;
+}
+.liste-suivant{
+    height: 10%;
+    background-color: silver;
+    margin-top: 1%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 100.5%;
+    margin-left: -0.25%   
+}
+
+
+
+.Parametrer{
+    color: #73DEF0;
+    text-align: center;
+}
+
 table{
     margin-top: 20px;
     width: 90%;
@@ -322,4 +447,26 @@ table{
 
 th{
     text-align: left;
+}
+
+.input-OK{
+    float:right;
+    margin-right: 10%; 
+    margin-top: 14px;
+    background-color: blue;
+    border: none;
+    height: 30px;
+}
+
+.input-nbre{
+    float:right; width: 50px; 
+    margin-right: 15px; 
+    margin-top: 14px;
+    height: 30px;
+}
+
+.label-nbre{
+    float:right; margin-right: 10px; 
+    font-size: 30px; 
+    color:silver;
 }
