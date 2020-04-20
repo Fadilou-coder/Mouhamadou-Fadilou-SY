@@ -83,6 +83,9 @@ if(isset($_POST['deconnexion'])){
                     <h3>Pour proposer des quizz</h3>
                     <div class="trait" style="width: 60%; margin-left: 0%"></div>
                     </div>
+                    <div class="img-admin">
+                        <img id="output" class="output"/>
+                    </div>
                     <div class = "forme" style="margin-left: 20px">
                     <form action="CreationCompteAdmin.php" method="POST" enctype="multipart/form-data">
                         <br/>
@@ -102,7 +105,7 @@ if(isset($_POST['deconnexion'])){
                         <input class="inputText" type="password" name="password" placeholder="&nbsp; Confirmer"/>
                         <br/><br/>
                         <label>Avatar</label>
-                        <input class="fichier" type="file" name="fichier" id="fichier"/>
+                        <input class="fichier" type="file" name="fichier" id="fichier" accept="image/*" onchange="loadFile(event)"/>
                         <br/><br/><br/>
                         <input class="submit1" type="submit" name="valider" value="Créer Compte" />
                     </form>
@@ -113,6 +116,15 @@ if(isset($_POST['deconnexion'])){
 
                 </div>
             </div>
+        <script>
+            var loadFile = function(event) {
+                var output = document.getElementById('output');
+                output.src = URL.createObjectURL(event.target.files[0]);
+                output.onload = function() {
+                    URL.revokeObjectURL(output.src)
+                }
+            };
+        </script>
         
     </body>
 </html>
@@ -169,8 +181,8 @@ if(isset($_POST['valider'])){
                $profil = $chemin.$profil;
                $admin['profil'] = $profil;
            
-               if($Type != "jpg" && $Type != "png" && $Type != "jpeg" && $Type != "gif" ) {
-                   echo "Désolé, les fichiers JPG, JPEG, PNG & GIF sont autorisés.";
+               if($Type != "jpg" && $Type != "png" && $Type != "jpeg") {
+                   echo "Désolé, les fichiers JPG, JPEG et PNGsont autorisés.";
                    $uploadOk = 0;
                }
            
@@ -182,7 +194,9 @@ if(isset($_POST['valider'])){
                        $js['Admins'][] = $admin;
                        $js = json_encode($js);
                        file_put_contents('fichier.json', $js);
-                       echo "<script>alert('Créer avec succès')</script>";
+                       ?>
+                       <script>alert('Créer avec succès')</script>
+                       <?php
                    } else {
                        echo "<br/><strong>Désolé, Erreur de téléchargement du photo.</strong>";
                    }

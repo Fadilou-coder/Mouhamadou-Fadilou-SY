@@ -21,17 +21,19 @@ session_start();
                     <h1>S'INSCRIRE</h1>
                     <h3>Pour tester votre niveau de culture générale</h3>
                     <div class="trait"></div>
-                
+                    <div class="img-user">
+                        <img id="output" class="output"/>
+                    </div>
                 <div class = "forme">
                     <form action="CreationCompteUser.php" method="POST" enctype="multipart/form-data">
                         <br/>
                         <label>Prénom</label>
                         <input class="inputText" type="text" name="prenom" placeholder="&nbsp; Aaaaa" value="<?php if(!empty($_POST['prenom'])) echo $_POST['prenom'] ?>"/>
                         <br/>
-                        <label>Nom&nbsp;&nbsp;</label>
+                        <label>Nom&nbsp;&nbsp;&nbsp;</label>
                         <input class="inputText" type="tex" name="nom" placeholder="&nbsp; BBBB" value="<?php if(!empty($_POST['nom'])) echo $_POST['nom'] ?>"/>
                         <br/>
-                        <label>Login</label>
+                        <label>Login&nbsp;&nbsp;</label>
                         <input class="inputText" type="text" name="login" placeholder="&nbsp; aabbaabb" value="<?php if(!empty($_POST['login'])) echo $_POST['login'] ?>"/>
                         <br/>
                         <label>Password</label>
@@ -41,15 +43,26 @@ session_start();
                         <input class="inputText" type="password" name="password" placeholder="&nbsp; Confirmer"/>
                         <br/><br/>
                         <label>Avatar</label>
-                        <input class="fichier" type="file" name="fichier" id="fichier"/>
+                        <input class="fichier" type="file" name="fichier" id="fichier" accept="image/*" onchange="loadFile(event)"/>
                         <br/><br/><br/>
                         <input class="submit1" type="submit" name="valider" value="Créer Compte" />
                     </form>
+                    </div>
+                    
                 </div>
-                </div>
+                    
             </div>
 
         </center>
+        <script>
+            var loadFile = function(event) {
+                var output = document.getElementById('output');
+                output.src = URL.createObjectURL(event.target.files[0]);
+                output.onload = function() {
+                URL.revokeObjectURL(output.src) // free memory
+                }
+            };
+        </script>
     </body>
 </html>
 

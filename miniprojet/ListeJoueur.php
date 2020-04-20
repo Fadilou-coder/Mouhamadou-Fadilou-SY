@@ -1,20 +1,24 @@
 <?php
 session_start();
-if($_SESSION){
-if(isset($_POST['deconnexion'])){
-    header('location: deconnexion.php');
-}  
-}
 if(!$_SESSION['Admin']){
     header('location: PageConnexion.php');
 }
-
+else{
+    if(isset($_POST['deconnexion'])){
+        header('location: deconnexion.php');
+    }
+}
 
 $js = file_get_contents('fichier.json');
 $js = json_decode($js, true);
 
-$NbrValeurParPage = 5;
-$totalValeur = count($js['Questions']);
+foreach ($js['Users'] as $key => $row) {
+    $pts[$key]  = $row['pts'];;
+}
+array_multisort($pts, SORT_DESC, $js['Users']);
+
+$NbrValeurParPage = 15;
+$totalValeur = count($js['Users']);
 $NbreDePage = ceil($totalValeur/$NbrValeurParPage);
 if (isset($_GET['page'])) {
     $pageActuelle = $_GET['page'];
@@ -27,10 +31,10 @@ else{
     $pageActuelle = 1;
 }
 if (isset($_POST['suivant'])) {
-    header('location: ListeQuestions.php?page=' . ($pageActuelle+1));
+    header('location: ListeJoueur.php?page=' . ($pageActuelle+1));
 }
 if (isset($_POST['prec'])) {
-    header('location: ListeQuestions.php?page=' . ($pageActuelle-1));
+    header('location: ListeJoueur.php?page=' . ($pageActuelle-1));
 }
 $IndiceDepart = ($pageActuelle - 1)*$NbrValeurParPage;
 $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
@@ -39,7 +43,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste Questions</title>
+    <title>Liste Joueurs</title>
     <link href="style.css" rel="stylesheet" type="text/css">
 </head>
     <body>
@@ -57,7 +61,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                    
                     
                     <div class="deconnexion">
-                        <form action="ListeQuestions.php" method="POST">
+                        <form action="ListeJoueur.php" method="POST">
                             <input class="dec" type="submit" name="deconnexion" value="Déconnexion" />
                         </form>
                     </div>
@@ -76,8 +80,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                             </div>
                         </div>
                         
-                        <div class="liste" style="background-color:   silver;">
-                            <div class="list-courant"></div>
+                        <div class="liste">
                             <a class="icones" href="ListeQuestions.php">
                                <img  src="Images\Icônes\ic-liste.png"/>
                             </a>
@@ -90,7 +93,8 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                             </a>
                             &nbsp;&nbsp;&nbsp; Créer Admin 
                         </div>
-                        <div class="liste">           
+                        <div class="liste" style="background-color:   silver;">  
+                                <div class="list-courant"></div>         
                                <a class="icones" href="ListeJoueur.php">
                                <img  src="Images\Icônes\ic-liste.png"/>
                                </a>
@@ -104,60 +108,32 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                             &nbsp;&nbsp;&nbsp; Créer Questions 
                         </div>
                     </div>
-                    <div class="Liste-qst">
-                        
-                            <form action="" method="POST">
-                                <br/>
-                                <input class="input-OK" type="submit" name="OK" value="OK"/>
-                                <input class="input-nbre" type="text" name="nbre"/>    
-                                <label class="label-nbre">Nbre de questions/jeu</label>
-                            </form>
-                        <div class="bordure-silver">
-                            <div class="list-question">
-                                <?php
-
-                                    $indice = 1;
+                    <div class="CreerAdmin">
+                        <center>
+                        <h1>LISTE DES JOUEURS</h1>
+                        <table>
+                            <tr><th>&nbsp;&nbsp;Prénoms: </th><th>Noms: </th><th>Score: </th></tr>
+                            <?php 
                                     for ($i = $IndiceDepart; $i <= $IndiceFin  ; $i++) { 
-                                        if(isset($js['Questions'][$i])){
-                                            echo "<br/><br/>".$indice++.".".$js['Questions'][$i]['question']."<br/><br/>";
-                                            if ($js['Questions'][$i]['type']=="choixS") {
-                                                for ($j=0; $j < count($js['Questions'][$i]['reponse']) ; $j++) { 
-                                                    echo '<br/><div class="choix-simple"></div><div class="reponse">'.$js['Questions'][$i]['reponse'][$j].'</div><br/>';
-                                                }
-                                            }
-                                            else {
-                                                if ($js['Questions'][$i]['type']=="choixM") {
-                                                    for ($j=0; $j < count($js['Questions'][$i]['reponse']) ; $j++) { 
-                                                        echo '<br/><div class="choix-mult"></div><div class="reponse">'.$js['Questions'][$i]['reponse'][$j].'</div><br/>';
-                                                    }
-                                                }
-                                                else {
-                                                    echo '<br/><div class="reponse-text"></div>';
-                                                }
-                                            }
-                                            
+                                        if(isset($js['Users'][$i])){
+                                            echo "<tr> <td>&nbsp;&nbsp;".$js['Users'][$i]['prenom']."</td> <td>".$js['Users'][$i]['nom']."</td> <td>".$js['Users'][$i]['pts']."  pts</td>   </tr>";
                                         }
                                     }
-                                    
-
-
-                                ?>
-                            </div>
-                        </div>
-                        <div class="liste-Qestion-suivant"> 
+                            ?>
+                        </table>
+                        </center>
+                        <div class="liste-Joueur-suivant">
                             <form method="POST">
-                               <?php 
-                                    if( $pageActuelle != $NbreDePage ){
-                                        echo '<input class="btn-suiv" type="submit" name="suivant" value="Suivant" />';
-                                    }
-                                    if( $pageActuelle != 1 ){
-                                        echo '<input class="btn-prec" type="submit" name="prec" value="Précedent" />';
-                                    }
-                                ?>
+                                <?php 
+                                        if( $pageActuelle != $NbreDePage ){
+                                            echo '<input class="btn-suiv" type="submit" name="suivant" value="Suivant" />';
+                                        }
+                                        if( $pageActuelle != 1 ){
+                                            echo '<input class="btn-prec" type="submit" name="prec" value="Précedent" />';
+                                        }
+                                    ?>
                             </form>
-                            
                         </div>
-                        
                     
                     </div>
                     
@@ -168,14 +144,3 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
         
     </body>
 </html>
-<?php
-
-   if (isset($_POST['OK'])) {
-       if( $_POST['nbre'] > 0){
-            $js['nbre-qst'] = $_POST['nbre'];
-            $js = json_encode($js);
-            file_put_contents('fichier.json', $js);
-       }
-   }
-
-?>
