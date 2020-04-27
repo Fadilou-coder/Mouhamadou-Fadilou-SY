@@ -17,7 +17,7 @@ if(isset($_POST['deconnexion'])){
     <link href="style.css" rel="stylesheet" type="text/css">
     <script type="text/javascript">
             var nbInput = 0;
-            var nbchamps = 1;
+            var tmp = "";
             function ajouterChamps()
             {
                 var formulaire = document.getElementById('formulaire');
@@ -25,11 +25,19 @@ if(isset($_POST['deconnexion'])){
                 formulaire.appendChild(document.createElement("br"));
                 formulaire.appendChild(document.createElement("br"));
                 if(type == 'choixT'){
-                    if(nbchamps > 1){
+                    if (tmp && tmp != 'choixT') {
+                        formulaire.innerText = '';
+                        formulaire.innerHTML = '</br>';
+                        nbInput = 0;
+                        tmp = 'choixT'
+
+                    }
+                    if(nbInput > 0){
                         alert('Vous avez droit à un seul champs de type text');
                     }
                     else{
-                        nbchamps++;
+                        tmp = 'choixT';
+                        nbInput++;
                         label = document.createElement("label");
                         label.innerHTML = "Reponse &nbsp;&nbsp;&nbsp;";
                         champ = document.createElement("input");
@@ -42,56 +50,90 @@ if(isset($_POST['deconnexion'])){
                     }
                 }
                 else{
-                    if(nbchamps > 3){
-                        alert('le nombre de reponses max est 3');
+                    if(type == 'choixM'){
+                        if (tmp && tmp != 'choixM') {
+                            formulaire.innerText = '';
+                            formulaire.innerHTML = '</br>';
+                            nbInput = 0;
+                            tmp = 'choixM'
+                        }
+                        if(nbInput >= 3){
+                            alert('le nombre de reponses max est 3');
+                        }
+                        else{
+                            tmp = 'choixM';
+                            div = document.createElement("div");
+                            div.setAttribute("id","ligne"+nbInput);
+                            formulaire.appendChild(div);
+                            var ligne = document.getElementById("ligne"+nbInput);
+                            label = document.createElement("label");
+                            label.innerHTML = "Reponse "+(nbInput+1)+" &nbsp;&nbsp;&nbsp;";
+                            ligne.appendChild(label);
+                            champ = document.createElement("input");
+                            champ.setAttribute("type","text");
+                            champ.setAttribute("name","reponse"+nbInput);
+                            champ.setAttribute("class","inputText");
+                            champ.setAttribute("style","background-color: #F5F5F5; width: 65%");
+                            ligne.appendChild(champ);
+                            check = document.createElement("input");
+                            check.setAttribute("type","checkbox");
+                            check.setAttribute("name","vrai"+nbInput);
+                            ligne.appendChild(check);
+                            btn = document.createElement("button");                                
+                            btn.setAttribute("type","button");
+                            btn.setAttribute("name","supp"+nbInput);
+                            btn.innerHTML = '<img style="margin:0;"  src="Images/Icônes/ic-supprimer.png" onclick="supp_champs('+nbInput+')" />';
+                            ligne.appendChild(btn);
+                            nbInput++;
+                        }
+                                
                     }
-                    else{ 
-                            if(type == 'choixM'){
-                                nbchamps++;
-                                champ = document.createElement("input");
+                    else{
+                        if(type == 'choixS')
+                        {  
+                            if (tmp && tmp != 'choixS') {
+                                formulaire.innerText = '';
+                                formulaire.innerHTML = '</br>';
+                                nbInput = 0;
+                                tmp = 'choixM'
+                            }
+                            if(nbInput >= 3){
+                                alert('le nombre de reponses max est 3');
+                            }
+                            else{
+                                tmp = 'choixS'; 
+                                div = document.createElement("div");
+                                div.setAttribute("id","ligne"+nbInput);
+                                formulaire.appendChild(div);
+                                var ligne = document.getElementById("ligne"+nbInput);
                                 label = document.createElement("label");
                                 label.innerHTML = "Reponse "+(nbInput+1)+" &nbsp;&nbsp;&nbsp;";
-                                formulaire.appendChild(label);
+                                ligne.appendChild(label);
+                                champ = document.createElement("input");
                                 champ.setAttribute("type","text");
                                 champ.setAttribute("name","reponse"+nbInput);
                                 champ.setAttribute("class","inputText");
                                 champ.setAttribute("style","background-color: #F5F5F5; width: 65%");
-                                formulaire.appendChild(champ);
-                                check = document.createElement("input");
-                                check.setAttribute("type","checkbox");
-                                check.setAttribute("name","vrai"+nbInput);
-                                check.setAttribute("class","checkbox");
-                                formulaire.appendChild(check);
+                                ligne.appendChild(champ);
+                                radio = document.createElement("input");
+                                radio.setAttribute("type","radio");
+                                radio.setAttribute("name","vrai");
+                                radio.setAttribute("value",champ.name);
+                                ligne.appendChild(radio);
+                                btn = document.createElement("button");
+                                btn.setAttribute("type","button");
+                                btn.setAttribute("name","ligne"+nbInput);
+                                btn.innerHTML = '<img style="margin:0;"  src="Images/Icônes/ic-supprimer.png" onclick="supp_champs('+nbInput+')" />';
+                                ligne.appendChild(btn);
                                 nbInput++;
-                                
                             }
-                            else{
-                                if(type == 'choixS')
-                                {
-                                    nbchamps++;
-                                    label = document.createElement("label");
-                                    label.innerHTML = "Reponse "+(nbInput+1)+" &nbsp;&nbsp;&nbsp;";
-                                    formulaire.appendChild(label);
-                                    champ = document.createElement("input");
-                                    champ.setAttribute("type","text");
-                                    champ.setAttribute("name","reponse"+nbInput);
-                                    champ.setAttribute("class","inputText");
-                                    champ.setAttribute("style","background-color: #F5F5F5; width: 65%");
-                                    formulaire.appendChild(champ);
-                                    radio = document.createElement("input");
-                                    radio.setAttribute("type","radio");
-                                    radio.setAttribute("name","vrai"+nbInput);
-                                    radio.setAttribute("class","radio");
-                                    formulaire.appendChild(radio);
-                                    nbInput++;
-
-                                }
-                            }
-                        
+                        }
                     }
-                    
-                }
-                
+                }    
+            }
+            function supp_champs(l){
+                var inp = document.getElementById("ligne"+l);
+                inp.remove();
             }
         </script>
 </head>
@@ -162,16 +204,14 @@ if(isset($_POST['deconnexion'])){
                         
                         <h1 class="Parametrer">PARAMETRER VOTRE QUESTION</h1>
                         <div class="bordure-bleu">
-                        <form  action="" method="POST">
+                        <form  action="" method="POST" id="form-question">
                         
                                 <label style="margin-top: 50px">QUESTIONS&nbsp;&nbsp;&nbsp;</label>
-                                <textarea  style="margin: 1%; background-color: #F5F5F5" name="questions" cols="60%" rows="8"><?php if(!empty($_POST['questions'])) echo $_POST['questions']; ?></textarea><br/><br/>
+                                <textarea style="margin: 1%; background-color: #F5F5F5" name="questions" cols="60%" rows="8"><?php if(!empty($_POST['questions'])) echo $_POST['questions']; ?></textarea><br/>
                                 <label >Nbre de Points</label>&nbsp;&nbsp;
                                 <input type="number" name="score" class="inputText" style="width: 10%;" value="<?php if(!empty($_POST['score'])) echo $_POST['score']; ?>"/><br/><br/>
-                                
-                                <div id="formulaire" >
                                     <label>Type de Reponse&nbsp;&nbsp;&nbsp;</label>
-                                    <select id="type" onchange="ajouterChamps()" style="width: 65%;" class="inputText" name="type">
+                                    <select id="type" onchange="ajouterChamps()" style="width: 60%;" class="inputText" name="type">
                                         <option value= "<?php if(!empty($_POST['type'])) echo $_POST['type']; ?>">Choisiser un type</option>
                                         <option value="choixM">Choix Multiple</option>
                                         <option value="choixS">Choix Simple</option>
@@ -180,9 +220,9 @@ if(isset($_POST['deconnexion'])){
                                     <button class="AjoutReponse" name="ajout" type="button" onclick="ajouterChamps()" >
                                         <img style="margin:0;"  src="Images\Icônes\ic-ajout-réponse.png"/>
                                     </button>
+                                <div id="formulaire" >
                                 </div>
-                                <br/>
-                                <input class="Enregistrer-qst" type="submit" name="valider" value="Enregistrer" />
+                                <button class="Enregistrer-qst" type="submit" name="valider">Enregistrer</button>
                         </form>
                         </div>
                     </div>
@@ -191,7 +231,7 @@ if(isset($_POST['deconnexion'])){
 
                 </div>
             </div>
-        
+            
     </body>
 </html>
 <?php
@@ -218,13 +258,13 @@ if (isset($_POST['valider'])) {
                     if (!empty($_POST['reponse'.$i])) {
                         $questions['reponse'][$i] = $_POST['reponse'.$i];
                         if(isset($_POST['vrai'.$i])){
-                            $questions['vrai'][$i] = "vrai";
-                        }
-                            
+                            $questions['vrai'][] = $questions['reponse'][$i];
+                        }  
                     }
                     else{
                         $tmp = 0;
                     }
+                    $i++;
                 }
             }
             else{
@@ -233,24 +273,22 @@ if (isset($_POST['valider'])) {
                     while(isset($_POST['reponse'.$i])){
                         if (!empty($_POST['reponse'.$i])) {
                             $questions['reponse'][$i] = $_POST['reponse'.$i];
-                            if(isset($_POST['vrai'.$i])){
-                                $questions['vrai'][$i] = "vrai";
-                            }
                         }
                         else{
                             $tmp = 0;
                         }
                         $i++;
                     }
+                    $questions['vrai'][] = $_POST[$_POST['vrai']];
                 }
             }   
         }
         if($tmp){
-            $js = file_get_contents('fichier.json');
+            $js = file_get_contents('question.json');
             $js = json_decode($js, true);
             $js['Questions'][] = $questions;
             $js = json_encode($js);
-            file_put_contents('fichier.json', $js);
+            file_put_contents('question.json', $js);
         }
         else{
             echo "Remplir tous les champs!!!";

@@ -10,7 +10,7 @@ if(!$_SESSION['Admin']){
 }
 
 
-$js = file_get_contents('fichier.json');
+$js = file_get_contents('question.json');
 $js = json_decode($js, true);
 
 $NbrValeurParPage = 5;
@@ -122,13 +122,21 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                                             echo "<br/><br/>".$indice++.".".$js['Questions'][$i]['question']."<br/><br/>";
                                             if ($js['Questions'][$i]['type']=="choixS") {
                                                 for ($j=0; $j < count($js['Questions'][$i]['reponse']) ; $j++) { 
-                                                    echo '<br/><div class="choix-simple"></div><div class="reponse">'.$js['Questions'][$i]['reponse'][$j].'</div><br/>';
+                                                    echo '<br/><div class="choix-simple"';
+                                                    if ($js['Questions'][$i]['reponse'][$j] == $js['Questions'][$i]['vrai'][0]) {
+                                                        echo 'style = "background-color: #2ADDD6"';
+                                                    }
+                                                    echo '></div><div class="reponse">'.$js['Questions'][$i]['reponse'][$j].'</div><br/>';
                                                 }
                                             }
                                             else {
                                                 if ($js['Questions'][$i]['type']=="choixM") {
                                                     for ($j=0; $j < count($js['Questions'][$i]['reponse']) ; $j++) { 
-                                                        echo '<br/><div class="choix-mult"></div><div class="reponse">'.$js['Questions'][$i]['reponse'][$j].'</div><br/>';
+                                                        echo '<br/><div class="choix-mult"';
+                                                        if (in_array($js['Questions'][$i]['reponse'][$j], $js['Questions'][$i]['vrai'])) {
+                                                            echo 'style = "background-color: #2ADDD6"';
+                                                        }
+                                                        echo '></div><div class="reponse">'.$js['Questions'][$i]['reponse'][$j].'</div><br/>';
                                                     }
                                                 }
                                                 else {
@@ -174,7 +182,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
        if( $_POST['nbre'] > 0){
             $js['nbre-qst'] = $_POST['nbre'];
             $js = json_encode($js);
-            file_put_contents('fichier.json', $js);
+            file_put_contents('question.json', $js);
        }
    }
 
