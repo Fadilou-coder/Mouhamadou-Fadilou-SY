@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!$_SESSION['Admin']){
-    header('location: PageConnexion.php');
+    header('location: index.php');
 }
 if(isset($_POST['deconnexion'])){
     header('location: deconnexion.php');
@@ -135,6 +135,8 @@ if(isset($_POST['deconnexion'])){
                 var inp = document.getElementById("ligne"+l);
                 inp.remove();
             }
+
+            
         </script>
 </head>
     <body>
@@ -153,7 +155,7 @@ if(isset($_POST['deconnexion'])){
                     
                     <div class="deconnexion">
                         <form  action="" method="POST">
-                            <input class="dec" type="submit" name="deconnexion" value="Déconnexion" />
+                        <button class="dec" type="submit" name="deconnexion">Déconnexion</button>
                         </form>
                         
                     </div>
@@ -173,20 +175,20 @@ if(isset($_POST['deconnexion'])){
                         </div>
                         
                         <div class="liste">
-                            <a class="icones" href="ListeQuestions.php">
+                            <a class="icones" href="index.php?lien=liste_qst">
                                <img  src="Images\Icônes\ic-liste.png"/>
                             </a>
                             &nbsp;&nbsp;&nbsp; Liste Questions    
                         </div>
                         
                         <div class="liste">
-                            <a class="icones" href="CreationCompteAdmin.php">
+                            <a class="icones" href="index.php?lien=admin">
                                <img  src="Images\Icônes\ic-ajout-active.png"/>
                             </a>
                             &nbsp;&nbsp;&nbsp; Créer Admin 
                         </div>
                         <div class="liste">           
-                               <a class="icones" href="ListeJoueur.php">
+                               <a class="icones" href="index.php?lien=liste_jr">
                                <img  src="Images\Icônes\ic-liste.png"/>
                                </a>
                             &nbsp;&nbsp;&nbsp; Liste Joueurs   
@@ -194,24 +196,33 @@ if(isset($_POST['deconnexion'])){
                         
                         <div class="liste" style="background-color:   silver;">
                             <div class="list-courant"></div>
-                            <a class="icones" href="CreerQuestions.php">
+                            <a class="icones" href="index.php?lien=creer_qst">
                                <img  src="Images\Icônes\ic-ajout-active.png"/>
                             </a>
                             &nbsp;&nbsp;&nbsp; Créer Questions 
+                        </div>
+
+                        <div class="liste">
+                            <a class="icones" href="index.php?lien=statistiques">
+                            <img  src="Images\Icônes\ic-sta.png"/>
+                            </a>
+                            &nbsp;&nbsp;&nbsp; Statistiques 
                         </div>
                     </div>
                     <div class="CreerAdmin">
                         
                         <h1 class="Parametrer">PARAMETRER VOTRE QUESTION</h1>
                         <div class="bordure-bleu">
-                        <form  action="" method="POST" id="form-question">
+                        <form  action="" method="POST" id="form-creer">
                         
                                 <label style="margin-top: 50px">QUESTIONS&nbsp;&nbsp;&nbsp;</label>
-                                <textarea style="margin: 1%; background-color: #F5F5F5" name="questions" cols="60%" rows="8"><?php if(!empty($_POST['questions'])) echo $_POST['questions']; ?></textarea><br/>
+                                <textarea error="error-1" style="margin: 1%; background-color: #F5F5F5" name="questions" cols="60%" rows="8"><?php if(!empty($_POST['questions'])) echo $_POST['questions']; ?></textarea><br/>
+                                <div class="error-form" id="error-1"></div><br/>
                                 <label >Nbre de Points</label>&nbsp;&nbsp;
-                                <input type="number" name="score" class="inputText" style="width: 10%;" value="<?php if(!empty($_POST['score'])) echo $_POST['score']; ?>"/><br/><br/>
+                                <input error="error-2" type="number" name="score" class="inputText" style="width: 10%;" value="<?php if(!empty($_POST['score'])) echo $_POST['score']; ?>"/>
+                                <br/><div class="error-form" id="error-2"></div><br/>
                                     <label>Type de Reponse&nbsp;&nbsp;&nbsp;</label>
-                                    <select id="type" onchange="ajouterChamps()" style="width: 60%;" class="inputText" name="type">
+                                    <select error="error-3" id="type" onchange="ajouterChamps()" style="width: 60%;" class="inputText" name="type">
                                         <option value= "<?php if(!empty($_POST['type'])) echo $_POST['type']; ?>">Choisiser un type</option>
                                         <option value="choixM">Choix Multiple</option>
                                         <option value="choixS">Choix Simple</option>
@@ -220,15 +231,70 @@ if(isset($_POST['deconnexion'])){
                                     <button class="AjoutReponse" name="ajout" type="button" onclick="ajouterChamps()" >
                                         <img style="margin:0;"  src="Images\Icônes\ic-ajout-réponse.png"/>
                                     </button>
+                                    <div class="error-form" id="error-3"></div><br/>
                                 <div id="formulaire" >
                                 </div>
                                 <button class="Enregistrer-qst" type="submit" name="valider">Enregistrer</button>
                         </form>
                         </div>
                     </div>
-                    
-                    
-
+                    <script>
+                        const inputs = document.getElementsByTagName("input");
+                        for(input of inputs){
+                            input.addEventListener("keyup",function(e){
+                                if(e.target.hasAttribute("error")){
+                                    var idDivError = input.getAttribute("error");
+                                        document.getElementById(idDivError).innerText = ""
+                                }
+                                e.preventDefaut();
+                                return false;
+                            })
+                        }
+                        document.getElementById("form-creer").addEventListener("submit",function(e){
+                            const inputs = document.getElementsByTagName("input");
+                            var error = false;
+                            const textareas = document.getElementsByTagName("textarea");
+                            for(textarea of textareas){
+                                if(textarea.hasAttribute("error")){
+                                    idDiv = textarea.getAttribute("error");
+                                    if(!textarea.value){
+                                        document.getElementById(idDiv).innerText = "ce champs est obligatoire";
+                                        error = true;
+                                    }
+                                    else{
+                                        document.getElementById(idDiv).innerText = "";
+                                    }
+                                }
+                            }
+                            const types = document.getElementsByTagName("select");
+                            for(type of types){
+                                if(type.hasAttribute("error")){
+                                    idDiv = type.getAttribute("error");
+                                    if(!type.value){
+                                        document.getElementById(idDiv).innerText = "Veuillez Choisir un type";
+                                        error = true;
+                                    }
+                                    else{
+                                        document.getElementById(idDiv).innerText = "";
+                                    }
+                                }
+                            }
+                                
+                            for(input of inputs){
+                                if(input.hasAttribute("error")){
+                                    idDivError = input.getAttribute("error");
+                                    if(!input.value){
+                                        document.getElementById(idDivError).innerText = "ce champs est obligatoire";
+                                        error = true;
+                                    }              
+                                }else{
+                                    document.getElementById(idDivError).innerText = "";
+                                }
+                            }
+                            e.preventDefaut();
+                            return false;                
+                        })
+                    </script>
                 </div>
             </div>
             

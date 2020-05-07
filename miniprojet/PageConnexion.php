@@ -13,7 +13,6 @@ session_start();
         <img class="img-haut" src="Images/logo-QuizzSA.png" />
         <center>
             <div class="haut">
-                
                 <h2> Le Plaisir de Jouer </h2>
             </div>
             <div class = "admin">
@@ -31,18 +30,19 @@ session_start();
                                 <div class="error-form" id="error-2"></div>
                                 <br/><br/><br/>
                                 <button class="submit" type="submit" name="connexion">Connexion</button>
-                                <a href="CreationCompteUser.php">S'inscrire pour Jouer?</a>
+                                <a href="index.php?lien=creer_jr">S'inscrire pour Jouer?</a>
                         </form>
                     </div>
             </div>
-            <script type="text/javascript">
+            <script>
                 const inputs = document.getElementsByTagName("input");
                 for(input of inputs){
                     input.addEventListener("keyup",function(e){
                         if(e.target.hasAttribute("error")){
-                            var idDivError = input.getAttribute("error");
+                            var idDivError = input.getAttribute("error")
                             document.getElementById(idDivError).innerText = ""
                         }
+                        return false;
                     })
                 }
                 document.getElementById("form-connexion").addEventListener("submit",function(e){
@@ -61,7 +61,7 @@ session_start();
                             }
                     }
                     if(error){
-                        e.preventDefaut();
+                        e.preventDefaut()
                         return false;
                     }
 
@@ -87,9 +87,33 @@ if(isset($_POST['connexion'])){
         for ($i=0; $i < count($js['Users']) ; $i++) { 
             if($js['Users'][$i]['login'] == $login && $js['Users'][$i]['password'] == $password){
                 $user = "user";
+                $login = $js['Users'][$i]['login'];
                 $prenom = $js['Users'][$i]['prenom'];
                 $nom = $js['Users'][$i]['nom'];
                 $profil = $js['Users'][$i]['profil'];
+                $qst = file_get_contents('question.json');
+                $qst = json_decode($qst, true);
+                if (isset($js['Users'][$i]['qst-trouver'])) {
+                    if (count($qst['Questions']) - count($js['Users'][$i]['qst-trouver'])>=$qst['nbre-qst'] ) {
+                        $j = 0;
+                    }
+                    else{
+                        $j = $qst['nbre-qst']-(count($qst['Questions'])-count($js['Users'][$i]['qst-trouver']));
+                    }
+                }
+                else{
+                    $j = 0;
+                }
+                $_SESSION['qst_a_jouer'] =  array();
+                while($j < $qst['nbre-qst']){
+                    $tmp = rand(0,(count($qst['Questions'])-1));
+                    if(!isset($js['Users'][$i]['qst-trouver']) || !in_array($qst['Questions'][$tmp],$js['Users'][$i]['qst-trouver']) ) {
+                        if(!in_array($tmp,$_SESSION['qst_a_jouer'])){
+                            $_SESSION['qst_a_jouer'][] = $tmp;
+                            $j++;
+                        }
+                    } 
+                }
             break;
             }
         }
@@ -107,11 +131,12 @@ if(isset($_POST['connexion'])){
         
         if($user == "user"){
             $_SESSION['User'] = 'connect';
+            $_SESSION['login'] = $login;
             $_SESSION['prenom'] = $prenom;
             $_SESSION['nom'] = $nom;
             $_SESSION['profil'] = $profil;
-            $user = "";
-            header('location: Interface_Joueur.php');
+            $_SESSION['score'] = 0;
+            header('location: index.php?lien='.$user);
         }
         else{
             if($user == "admin"){
@@ -119,10 +144,7 @@ if(isset($_POST['connexion'])){
                 $_SESSION['prenom'] = $prenom;
                 $_SESSION['nom'] = $nom;
                 $_SESSION['profil'] = $profil;
-                $_SESSION['nbreM'] = 0;
-                $_SESSION['nbreS'] = 0;
-                $user = "";
-                header('location: CreationCompteAdmin.php');
+                header('location: index.php?lien='.$user);
             }
             else{
                 echo " <center><strong>Login ou mot de passe incorrecte</strong></center>";

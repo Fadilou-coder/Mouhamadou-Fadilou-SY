@@ -1,1 +1,154 @@
-{"Users":[{"prenom":"fallou","nom":"sy","login":"user","password":"user","pts":0,"profil":"img-user\/user.jpg"},{"prenom":"amara","nom":"sanokho","login":"amara","password":"amara","pts":25,"profil":"img-user\/amara.jpg"}],"Admins":[{"prenom":"Fadilou","nom":"sy","login":"admin","password":"admin","profil":"img-admin\/admin.jpg"},{"prenom":"Fadilou","nom":"Sy","login":"administrateur","password":"admin","profil":"img-admin\/administrateur.jpeg"},{"prenom":"Ngor","nom":"Fall","login":"Ngor","password":"admin","profil":"img-admin\/Ngor.jpg"},{"prenom":"Niokhor","nom":"Ndiaye","login":"Nioks","password":"admin","profil":"img-admin\/Nioks.jpg"}]}
+{
+    "Users": [
+        {
+            "prenom": "fallou",
+            "nom": "sy",
+            "login": "user",
+            "password": "user",
+            "pts": 1142,
+            "profil": "img-user\/user.jpg"
+        },
+        {
+            "prenom": "amara",
+            "nom": "sanokho",
+            "login": "amara",
+            "password": "amara",
+            "pts": 825,
+            "profil": "img-user\/amara.jpg",
+            "qst-trouver": [
+                {
+                    "question": "D'o\u00f9 vient le Covid19",
+                    "score": "10",
+                    "type": "choixS",
+                    "reponse": [
+                        "Italy",
+                        "Chine"
+                    ],
+                    "vrai": [
+                        "Chine"
+                    ]
+                },
+                {
+                    "question": "Les pr\u00e9curseurs de la r\u00e9volution digital",
+                    "score": "7",
+                    "type": "choixS",
+                    "reponse": [
+                        "GAFAM",
+                        "CIA-FBI"
+                    ],
+                    "vrai": [
+                        "GAFAM"
+                    ]
+                }
+            ]
+        },
+        {
+            "prenom": "Khady",
+            "nom": "Cisse",
+            "login": "dija",
+            "password": "queen",
+            "pts": 775,
+            "profil": "img-user\/dija.jpg"
+        },
+        {
+            "prenom": "Niokhor",
+            "nom": "Diouf",
+            "login": "Niokhor",
+            "password": "niokhor",
+            "pts": 577,
+            "profil": "img-user\/Niokhor.jpg"
+        },
+        {
+            "prenom": "Papa",
+            "nom": "Diop",
+            "login": "papa",
+            "password": "joueur",
+            "pts": 198,
+            "profil": "img-user\/papa.jpg"
+        },
+        {
+            "prenom": "Mady",
+            "nom": "Diatta",
+            "login": "barkham",
+            "password": "barkham",
+            "pts": 57,
+            "profil": "img-user\/barkham.jpeg",
+            "qst-trouver": []
+        },
+        {
+            "prenom": "Ndeye",
+            "nom": "Diop",
+            "login": "ndeya",
+            "password": "ndeya",
+            "pts": 57,
+            "profil": "img-user\/ndeya.jpeg",
+            "qst-trouver": []
+        },
+        {
+            "prenom": "Khalifa ",
+            "nom": "Diallo",
+            "login": "khaf",
+            "password": "star",
+            "pts": 17,
+            "profil": "img-user\/khaf.jpg",
+            "qst-trouver": [
+                {
+                    "question": "D'o\u00f9 vient le Covid19",
+                    "score": "10",
+                    "type": "choixS",
+                    "reponse": [
+                        "Italy",
+                        "Chine"
+                    ],
+                    "vrai": [
+                        "Chine"
+                    ]
+                },
+                {
+                    "question": "Les langages Web ",
+                    "score": "7",
+                    "type": "choixM",
+                    "reponse": [
+                        "HTML",
+                        "R",
+                        "PHP"
+                    ],
+                    "vrai": [
+                        "PHP",
+                        "HTML"
+                    ]
+                }
+            ]
+        }
+    ],
+    "Admins": [
+        {
+            "prenom": "Fadilou",
+            "nom": "sy",
+            "login": "admin",
+            "password": "admin",
+            "profil": "img-admin\/admin.jpg"
+        },
+        {
+            "prenom": "Fadilou",
+            "nom": "Sy",
+            "login": "administrateur",
+            "password": "admin",
+            "profil": "img-admin\/administrateur.jpeg"
+        },
+        {
+            "prenom": "Ngor",
+            "nom": "Fall",
+            "login": "Ngor",
+            "password": "admin",
+            "profil": "img-admin\/Ngor.jpg"
+        },
+        {
+            "prenom": "Niokhor",
+            "nom": "Ndiaye",
+            "login": "Nioks",
+            "password": "admin",
+            "profil": "img-admin\/Nioks.jpg"
+        }
+    ]
+}

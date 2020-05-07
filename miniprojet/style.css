@@ -3,8 +3,14 @@ body{
     background-image: url(Images/img-bg.jpg);
     background-repeat: no-repeat;
     background-size: 100%;
-    height: 800px;
+    height: 830px;
+    font-family: Helvetica;
 }
+a{
+    text-decoration: none
+}
+
+
 .img-haut{
     float: left;
     height: 80px;
@@ -20,6 +26,8 @@ body{
     font-size: large;
     line-height: 80px;
     margin-left: -10px;
+    color: white;
+    font-family: Open Sans;
 }
 
 /* PageConnexion */
@@ -41,7 +49,8 @@ body{
     background-color: #3ADDD6;
     width: 70%;
     text-align: left;
-    line-height: 60px
+    line-height: 60px;
+    color: white;
 }
 
 .input{
@@ -92,11 +101,12 @@ strong{
 .submit{
     height: 50px;
     float: left;
-    background-color: greenyellow;
+    background-color: #3ADDD6;
     border-radius: 10px;
     margin-left: 10%;
     font-size: large;
     width: 150px;
+    color: white;
 }
 
 img{
@@ -278,6 +288,8 @@ h3{
     width: 70%; 
     margin-left: 15%; 
     text-align: center;
+    color: white;
+    font-family: Myriad Pro;
 }
 
 .avatar{
@@ -340,7 +352,7 @@ h3{
 
 .list-question{
     margin-left: 2%;
-    font-size: 170%;
+    font-size: 160%;
     line-height: 10px;
 }
 
@@ -428,7 +440,13 @@ h3{
     float: right;
     width: 120px;
 }
-
+.quit{
+    background-color: rgb(173, 42, 32);
+    height: 40px;
+    float: right;
+    width: 120px;
+    margin-right: 25%;
+}
 
 .CreerAdmin{
     width: 65%;
@@ -457,7 +475,7 @@ h3{
     margin-left: -1%;
     background-color: white;
     border-radius: 10px;
-    height: 56%; 
+    height: 70%; 
     float: left;
     margin-top: 8%;
 }
@@ -560,7 +578,8 @@ th{
 
 .T-score a{
     line-height: 2%; 
-    text-decoration: none
+    text-decoration: none;
+    font-size: 90%;
 }
 
 .M-score{
@@ -575,7 +594,8 @@ th{
     line-height: 2%; 
     color: #3ADDD6;
     margin-left:10%; 
-    text-decoration: none
+    text-decoration: none;
+    font-size: 90%;
 }
 
 .affich-score{

@@ -6,7 +6,7 @@ if(isset($_POST['deconnexion'])){
 }  
 }
 if(!$_SESSION['Admin']){
-    header('location: PageConnexion.php');
+    header('location: index.php');
 }
 
 
@@ -27,10 +27,10 @@ else{
     $pageActuelle = 1;
 }
 if (isset($_POST['suivant'])) {
-    header('location: ListeQuestions.php?page=' . ($pageActuelle+1));
+    header('location: index.php?lien=liste_qst&page=' . ($pageActuelle+1));
 }
 if (isset($_POST['prec'])) {
-    header('location: ListeQuestions.php?page=' . ($pageActuelle-1));
+    header('location: index.php?lien=liste_qst&page=' . ($pageActuelle-1));
 }
 $IndiceDepart = ($pageActuelle - 1)*$NbrValeurParPage;
 $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
@@ -78,30 +78,37 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                         
                         <div class="liste" style="background-color:   silver;">
                             <div class="list-courant"></div>
-                            <a class="icones" href="ListeQuestions.php">
+                            <a class="icones" href="index.php?lien=liste_qst">
                                <img  src="Images\Icônes\ic-liste.png"/>
                             </a>
                             &nbsp;&nbsp;&nbsp; Liste Questions    
                         </div>
                         
                         <div class="liste">
-                            <a class="icones" href="CreationCompteAdmin.php">
+                            <a class="icones" href="index.php?lien=admin">
                                <img  src="Images\Icônes\ic-ajout-active.png"/>
                             </a>
                             &nbsp;&nbsp;&nbsp; Créer Admin 
                         </div>
                         <div class="liste">           
-                               <a class="icones" href="ListeJoueur.php">
+                               <a class="icones" href="index.php?lien=liste_jr">
                                <img  src="Images\Icônes\ic-liste.png"/>
                                </a>
                             &nbsp;&nbsp;&nbsp; Liste Joueurs   
                         </div>
                         
                         <div class="liste">
-                            <a class="icones" href="CreerQuestions.php">
+                            <a class="icones" href="index.php?lien=creer_qst">
                                <img  src="Images\Icônes\ic-ajout-active.png"/>
                             </a>
                             &nbsp;&nbsp;&nbsp; Créer Questions 
+                        </div>
+
+                        <div class="liste">
+                            <a class="icones" href="index.php?lien=statistiques">
+                            <img  src="Images\Icônes\ic-sta.png"/>
+                            </a>
+                            &nbsp;&nbsp;&nbsp; Statistiques 
                         </div>
                     </div>
                     <div class="Liste-qst">
@@ -109,7 +116,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                             <form action="" method="POST">
                                 <br/>
                                 <input class="input-OK" type="submit" name="OK" value="OK"/>
-                                <input class="input-nbre" type="text" name="nbre"/>    
+                                <input class="input-nbre" type="text" name="nbre" value="<?php echo $js['nbre-qst'] ?>" />    
                                 <label class="label-nbre">Nbre de questions/jeu</label>
                             </form>
                         <div class="bordure-silver">
@@ -161,6 +168,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                                     if( $pageActuelle != 1 ){
                                         echo '<input class="btn-prec" type="submit" name="prec" value="Précedent" />';
                                     }
+
                                 ?>
                             </form>
                             
@@ -179,7 +187,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
 <?php
 
    if (isset($_POST['OK'])) {
-       if( $_POST['nbre'] > 0){
+       if( $_POST['nbre'] >= 5){
             $js['nbre-qst'] = $_POST['nbre'];
             $js = json_encode($js);
             file_put_contents('question.json', $js);

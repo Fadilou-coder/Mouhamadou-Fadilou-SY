@@ -25,27 +25,33 @@ session_start();
                         <img id="output" class="output"/>
                     </div>
                 <div class = "forme">
-                    <form action="CreationCompteUser.php" method="POST" enctype="multipart/form-data">
+                    <form action="CreationCompteUser.php" method="POST" enctype="multipart/form-data" id="form-creer">
                         <br/>
                         <label>Prénom</label>
-                        <input class="inputText" type="text" name="prenom" placeholder="&nbsp; Aaaaa" value="<?php if(!empty($_POST['prenom'])) echo $_POST['prenom'] ?>"/>
-                        <br/>
+                        <input error="error-1" class="inputText" type="text" name="prenom" placeholder="&nbsp; Aaaaa" value="<?php if(!empty($_POST['prenom'])) echo $_POST['prenom'] ?>"/>
+                        <div class="error-form" id="error-1"></div>
+                        <br/><br/>
                         <label>Nom&nbsp;&nbsp;&nbsp;</label>
-                        <input class="inputText" type="tex" name="nom" placeholder="&nbsp; BBBB" value="<?php if(!empty($_POST['nom'])) echo $_POST['nom'] ?>"/>
-                        <br/>
+                        <input error="error-2" class="inputText" type="tex" name="nom" placeholder="&nbsp; BBBB" value="<?php if(!empty($_POST['nom'])) echo $_POST['nom'] ?>"/>
+                        <div class="error-form" id="error-2"></div>
+                        <br/><br/>
                         <label>Login&nbsp;&nbsp;</label>
-                        <input class="inputText" type="text" name="login" placeholder="&nbsp; aabbaabb" value="<?php if(!empty($_POST['login'])) echo $_POST['login'] ?>"/>
-                        <br/>
+                        <input error="error-3" class="inputText" type="text" name="login" placeholder="&nbsp; aabbaabb" value="<?php if(!empty($_POST['login'])) echo $_POST['login'] ?>"/>
+                        <div class="error-form" id="error-3"></div>
+                        <br/><br/>
                         <label>Password</label>
-                        <input class="inputText" type="password" name="password1" placeholder="&nbsp; Password"/>
-                        <br/>
+                        <input error="error-4" class="inputText" type="password" name="password1" placeholder="&nbsp; Password"/>
+                        <div class="error-form" id="error-4"></div>
+                        <br/><br/>
                         <label>Confirmer Password</label>
-                        <input class="inputText" type="password" name="password" placeholder="&nbsp; Confirmer"/>
+                        <input error="error-5" class="inputText" type="password" name="password" placeholder="&nbsp; Confirmer"/>
+                        <div class="error-form" id="error-5"></div>
                         <br/><br/>
                         <label>Avatar</label>
-                        <input class="fichier" type="file" name="fichier" id="fichier" accept="image/*" onchange="loadFile(event)"/>
+                        <input error="error-6" class="fichier" type="file" name="fichier" id="fichier" accept="image/*" onchange="loadFile(event)"/>
                         <br/><br/><br/>
-                        <input class="submit1" type="submit" name="valider" value="Créer Compte" />
+                        <div class="error-form" id="error-6"></div><br/>
+                        <button class="submit1" type="submit" name="valider">Créer Compte</button>
                     </form>
                     </div>
                     
@@ -54,12 +60,45 @@ session_start();
             </div>
 
         </center>
-        <script>
+
+        <script type="text/javascript">
+                const inputs = document.getElementsByTagName("input");
+                for(input of inputs){
+                    input.addEventListener("keyup",function(e){
+                        if(e.target.hasAttribute("error")){
+                            var idDivError = input.getAttribute("error");
+                            document.getElementById(idDivError).innerText = ""
+                        }
+                    })
+                }
+                document.getElementById("form-creer").addEventListener("submit",function(e){
+                    const inputs = document.getElementsByTagName("input");
+                    var error = false;
+                    for(input of inputs){
+                        if(input.hasAttribute("error")){
+                            idDivError = input.getAttribute("error")
+                            if(!input.value){
+                                    document.getElementById(idDivError).innerText = "ce champs est obligatoire";
+                                    error = true;
+                            }
+                            
+                        }else{
+                                document.getElementById(idDivError).innerText = "";
+                            }
+                    }
+                    if(error){
+                        e.preventDefaut();
+                        return false;
+                    }
+
+                    
+                })
+        
             var loadFile = function(event) {
                 var output = document.getElementById('output');
                 output.src = URL.createObjectURL(event.target.files[0]);
                 output.onload = function() {
-                URL.revokeObjectURL(output.src) // free memory
+                URL.revokeObjectURL(output.src)
                 }
             };
         </script>
@@ -133,7 +172,7 @@ if(isset($_POST['valider'])){
                         $js['Users'][] = $user;
                         $js = json_encode($js);
                         file_put_contents('fichier.json', $js);
-                        header('location: PageConnexion.php');
+                        echo '<script>location.replace("index.php");</script>';
                     } else {
                         echo "<br/><strong>Désolé, Erreur de téléchargement du photo.</strong>";
                     }
@@ -149,10 +188,6 @@ if(isset($_POST['valider'])){
         {
             echo " <center><strong>Les deux mots de passe ne correspondent pas.</strong></center>";
         }
-    }
-    else
-    {
-        echo " <center><strong>Remplir tous les champs!!!</strong></center>";
     }
 }  
 

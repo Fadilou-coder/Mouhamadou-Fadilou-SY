@@ -1,7 +1,7 @@
 <?php
 session_start();
 if(!($_SESSION['Admin'])){
-    header('location: PageConnexion.php');
+    header('location: index.php');
 }
 if(isset($_POST['deconnexion'])){
     header('location: deconnexion.php');
@@ -31,7 +31,7 @@ if(isset($_POST['deconnexion'])){
                     
                     <div class="deconnexion">
                         <form action="CreationCompteAdmin.php" method="POST">
-                            <input class="dec" type="submit" name="deconnexion" value="Déconnexion" />
+                            <button class="dec" type="submit" name="deconnexion">Déconnexion</button>
                         </form>
                     </div>
                     
@@ -50,7 +50,7 @@ if(isset($_POST['deconnexion'])){
                         </div>
                         
                         <div class="liste">
-                            <a class="icones" href="ListeQuestions.php">
+                            <a class="icones" href="index.php?lien=liste_qst">
                                <img  src="Images\Icônes\ic-liste.png"/>
                             </a>
                             &nbsp;&nbsp;&nbsp; Liste Questions    
@@ -58,23 +58,30 @@ if(isset($_POST['deconnexion'])){
                         
                         <div style="background-color:   silver;" class="liste">
                             <div class="list-courant"></div>
-                            <a class="icones" href="CreerCompteAdmin.php">
+                            <a class="icones" href="index.php?lien=admin">
                                <img  src="Images\Icônes\ic-ajout-active.png"/>
                             </a>
                             &nbsp;&nbsp;&nbsp; Créer Admin 
                         </div>
                         <div class="liste">           
-                               <a class="icones" href="ListeJoueur.php">
+                               <a class="icones" href="index.php?lien=liste_jr">
                                <img  src="Images\Icônes\ic-liste.png"/>
                                </a>
                             &nbsp;&nbsp;&nbsp; Liste Joueurs   
                         </div>
                         
                         <div class="liste">
-                            <a class="icones" href="CreerQuestions.php">
+                            <a class="icones" href="index.php?lien=creer_qst">
                                <img  src="Images\Icônes\ic-ajout-active.png"/>
                             </a>
                             &nbsp;&nbsp;&nbsp; Créer Questions 
+                        </div>
+
+                        <div class="liste">
+                            <a class="icones" href="index.php?lien=statistiques">
+                            <img  src="Images\Icônes\ic-sta.png"/>
+                            </a>
+                            &nbsp;&nbsp;&nbsp; Statistiques 
                         </div>
                     </div>
                     <div class="CreerAdmin">
@@ -87,44 +94,82 @@ if(isset($_POST['deconnexion'])){
                         <img id="output" class="output"/>
                     </div>
                     <div class = "forme" style="margin-left: 20px">
-                    <form action="CreationCompteAdmin.php" method="POST" enctype="multipart/form-data">
-                        <br/>
+                    <form action="CreationCompteAdmin.php" method="POST" enctype="multipart/form-data" id="form-creer">
                         <label>Prénom</label>
-                        <input class="inputText" type="text" name="prenom" placeholder="&nbsp; Aaaaa" value="<?php if(!empty($_POST['prenom'])) echo $_POST['prenom'] ?>"/>
-                        <br/>
+                        <input error="error-1" class="inputText" type="text" name="prenom" placeholder="&nbsp; Aaaaa" value="<?php if(!empty($_POST['prenom'])) echo $_POST['prenom'] ?>"/>
+                        <div class="error-form" id="error-1"></div>
+                        <br/><br/>
                         <label>Nom&nbsp;&nbsp;</label>
-                        <input class="inputText" type="tex" name="nom" placeholder="&nbsp; BBBB" value="<?php if(!empty($_POST['nom'])) echo $_POST['nom'] ?>"/>
-                        <br/>
+                        <input error="error-2" class="inputText" type="tex" name="nom" placeholder="&nbsp; BBBB" value="<?php if(!empty($_POST['nom'])) echo $_POST['nom'] ?>"/>
+                        <div class="error-form" id="error-2"></div>
+                        <br/><br/>
                         <label>Login</label>
-                        <input class="inputText" type="text" name="login" placeholder="&nbsp; aabbaabb" value="<?php if(!empty($_POST['login'])) echo $_POST['login'] ?>"/>
-                        <br/>
+                        <input error="error-3" class="inputText" type="text" name="login" placeholder="&nbsp; aabbaabb" value="<?php if(!empty($_POST['login'])) echo $_POST['login'] ?>"/>
+                        <div class="error-form" id="error-3"></div>
+                        <br/><br/>
                         <label>Password</label>
-                        <input class="inputText" type="password" name="password1" placeholder="&nbsp; Password"/>
-                        <br/>
+                        <input error="error-4" class="inputText" type="password" name="password1" placeholder="&nbsp; Password"/>
+                        <div class="error-form" id="error-4"></div>
+                        <br/><br/>
                         <label>Confirmer Password</label>
-                        <input class="inputText" type="password" name="password" placeholder="&nbsp; Confirmer"/>
+                        <input error="error-5" class="inputText" type="password" name="password" placeholder="&nbsp; Confirmer"/>
+                        <div class="error-form" id="error-5"></div>
                         <br/><br/>
                         <label>Avatar</label>
-                        <input class="fichier" type="file" name="fichier" id="fichier" accept="image/*" onchange="loadFile(event)"/>
+                        <input error="error-6" class="fichier" type="file" name="fichier" id="fichier" accept="image/*" onchange="loadFile(event)"/>
                         <br/><br/><br/>
-                        <input class="submit1" type="submit" name="valider" value="Créer Compte" />
+                        <div class="error-form" id="error-6"></div>
+                        <button class="submit1" type="submit" name="valider">Créer Compte</button>
                     </form>
                     </div>
                     </div>
                     
                     
+                    
 
                 </div>
             </div>
-        <script>
-            var loadFile = function(event) {
-                var output = document.getElementById('output');
-                output.src = URL.createObjectURL(event.target.files[0]);
-                output.onload = function() {
-                    URL.revokeObjectURL(output.src)
-                }
-            };
-        </script>
+
+                    <script type="text/javascript">
+                            const inputs = document.getElementsByTagName("input");
+                            for(input of inputs){
+                                input.addEventListener("keyup",function(e){
+                                    if(e.target.hasAttribute("error")){
+                                        var idDivError = input.getAttribute("error");
+                                        document.getElementById(idDivError).innerText = ""
+                                    }
+                                })
+                            }
+                            document.getElementById("form-creer").addEventListener("submit",function(e){
+                                const inputs = document.getElementsByTagName("input");
+                                var error = false;
+                                for(input of inputs){
+                                    if(input.hasAttribute("error")){
+                                        idDivError = input.getAttribute("error");
+                                        if(!input.value){
+                                                document.getElementById(idDivError).innerText = "ce champs est obligatoire";
+                                                error = true;
+                                        }
+                                        
+                                    }else{
+                                            document.getElementById(idDivError).innerText = "";
+                                        }
+                                }
+                                if(error){
+                                    e.preventDefaut();
+                                    return false;
+                                }
+                                
+                            })
+                    
+                        var loadFile = function(event) {
+                            var output = document.getElementById('output');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                            output.onload = function() {
+                                URL.revokeObjectURL(output.src)
+                            }
+                        };
+                    </script>
         
     </body>
 </html>
@@ -212,10 +257,6 @@ if(isset($_POST['valider'])){
        {
            echo " <center><strong>Les deux mots de passe ne correspondent pas.</strong></center>";
        }
-   }
-   else
-   {
-       echo " <center><strong>Remplir tous les champs!!!</strong></center>";
    }
 }  
 
