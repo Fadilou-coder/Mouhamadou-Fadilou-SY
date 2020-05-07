@@ -1,10 +1,5 @@
 <?php
 session_start();
-if($_SESSION){
-if(isset($_POST['deconnexion'])){
-    header('location: deconnexion.php');
-}  
-}
 if(!$_SESSION['Admin']){
     header('location: PageConnexion.php');
 }
@@ -13,13 +8,25 @@ $users = file_get_contents('fichier.json');
 $users = json_decode($users, true);
 $qst = file_get_contents('question.json');
 $qst = json_decode($qst, true);
+$smpl = 0;
+$mult = 0;
+$text =0;
+for ($i=0; $i < count($qst['Questions']) ; $i++) { 
+    if ($qst['Questions'][$i]['type'] === 'choixM') {
+        $mult++;
+    }
+    else {
+        if ($qst['Questions'][$i]['type'] === 'choixS') {
+            $smpl++;
+        }
+        else{
+            $text++;
+        }
+
+    }
+}
 $nbr_Joueurs = count($users['Users']);
 $nbr_Admins = count($users['Admins']);
-foreach ($users['Users'] as $key => $row) {
-    $pts[$key]  = $row['pts'];
-}
-array_multisort($pts, SORT_DESC, $users['Users']);
-
 if (!isset($_GET['page'])) {
     $_GET['page'] = 1;
 }
@@ -47,9 +54,15 @@ if (!isset($_GET['page'])) {
                    
                     
                     <div class="deconnexion">
-                        <form action="ListeQuestions.php" method="POST">
-                            <input class="dec" type="submit" name="deconnexion" value="Déconnexion" />
-                        </form>
+                        <button class="dec" name="deconnexion" onclick="deconnexion()">Déconnexion</button>
+                        <script>
+                            function deconnexion() {
+                                var r = confirm("Voulez vous vraiment vous deconnecter?");
+                                if (r == true) {
+                                    location.replace("deconnexion.php")
+                                }
+                            }
+                        </script>
                     </div>
                     
                 </div>
@@ -66,60 +79,33 @@ if (!isset($_GET['page'])) {
                             </div>
                         </div>
                         
-                        <div class="liste">
-                            <a class="icones" href="index.php?lien=liste_qst">
-                               <img  src="Images\Icônes\ic-liste.png"/>
-                            </a>
-                            &nbsp;&nbsp;&nbsp; Liste Questions    
-                        </div>
-                        
-                        <div class="liste">
-                            <a class="icones" href="index.php?lien=admin">
-                               <img  src="Images\Icônes\ic-ajout-active.png"/>
-                            </a>
-                            &nbsp;&nbsp;&nbsp; Créer Admin 
-                        </div>
-                        <div class="liste">           
-                               <a class="icones" href="index.php?lien=liste_jr">
-                               <img  src="Images\Icônes\ic-liste.png"/>
-                               </a>
-                            &nbsp;&nbsp;&nbsp; Liste Joueurs   
-                        </div>
-                        
-                        <div class="liste">
-                            <a class="icones" href="index.php?lien=creer_qst">
-                               <img  src="Images\Icônes\ic-ajout-active.png"/>
-                            </a>
-                            &nbsp;&nbsp;&nbsp; Créer Questions 
-                        </div>
-
-                        <div class="liste" style="background-color:   silver;">
-                            <div class="list-courant"></div>
-                            <a class="icones" href="index.php?lien=statistiques">
-                            <img  src="Images\Icônes\ic-sta.png"/>
-                            </a>
-                            &nbsp;&nbsp;&nbsp; Statistiques 
-                        </div>
+                        <ul>
+                            <li><a href="index.php?lien=liste_qst">&nbsp;&nbsp;&nbsp;Liste Questions <img class="icones" src="Images\Icônes\ic-liste.png"/></a></li>
+                            <li><a href="index.php?lien=admin">&nbsp;&nbsp;&nbsp;Creer Admin <img class="icones" src="Images\Icônes\ic-ajout-active.png"/> </a></li>
+                            <li><a href="index.php?lien=liste_jr">&nbsp;&nbsp;&nbsp;Liste Joueurs <img class="icones" src="Images\Icônes\ic-liste.png"/> </a></li>
+                            <li><a href="index.php?lien=creer_qst">&nbsp;&nbsp;&nbsp;Creer Questions <img class="icones" src="Images\Icônes\ic-ajout-active.png"/> </a></li>
+                            <li><a class="active" href="index.php?lien=statistiques"><div></div>&nbsp;&nbsp;&nbsp;Statistiques <img class="icones" src="Images\Icônes\ic-sta.png"/> </a></li>
+                        </ul>
 
                     </div>
                     <div class="Liste-qst">
                         <div class="bordure-silver">                       
-                                <div style="width: 33%; float: left; text-align: center"> <a href='Statistiques.php?page=1'>Utilisateurs</a> </div>
-                                <div style="width: 33%; float: left; text-align: center"> <a href='Statistiques.php?page=2'>Questions</a> </div>
-                                <div style="width: 34%; float: left; text-align: center"> <a href='Statistiques.php?page=3'>Scores</a> </div>
+                                <div class="lien-sta"> <a href='Statistiques.php?page=1'>Utilisateurs</a> </div>
+                                <div class="lien-sta"> <a href='Statistiques.php?page=2'>Questions</a> </div>
+                                <div class="lien-sta"> <a href='Statistiques.php?page=3'>Scores</a> </div>
                                 <div>
                                     <center>
 
                                         <?php
                                                 if ($_GET['page'] == 1) {
-                                                    echo '<div style="width: 90%"><canvas id="Compte"></canvas></div>';
+                                                    echo '<div "><canvas style="width: 70%; height:60%"  id="Compte"></canvas></div>';
                                                 }
                                                 else{
                                                     if ($_GET['page'] == 2) {
-                                                        echo '<div style="width: 90%"><canvas id="Questions"></canvas></div>';
+                                                        echo '<div><canvas style="width: 70%; height:60%"  id="Questions"></canvas></div>';
                                                     }
                                                     else{
-                                                        echo '<div style="width: 90%"><canvas id="Score"></canvas></div>';
+                                                        echo '<div><canvas style="width: 70%; height:60%"  id="Score"></canvas></div>';
                                                     }
                                                 }
                                         ?>
@@ -181,7 +167,7 @@ if (!isset($_GET['page'])) {
                             label: 'Nombre',
                             backgroundColor: 'rgb(255, 99, 132, 0.25)',
                             borderColor: 'rgb(255, 99, 132)',
-                            data: [10, 25, 2]
+                            data: [<?php echo $text.','.$smpl.','.$mult  ?>]
                         }]
                     },
 

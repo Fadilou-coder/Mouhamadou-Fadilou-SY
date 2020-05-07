@@ -16,23 +16,23 @@ session_start();
                 <h2> Le Plaisir de Jouer </h2>
             </div>
             <div class = "admin">
-            <br/><br/><br/><br/>
-            <div class = "loginForm"><h1>&nbsp; Login Form: </h1></div>
-                    <div class = "forme">
-                        <form action="PageConnexion.php" method="POST" id="form-connexion">
-                            <br/>
-                            <input class="inputText" type="text" error="error-1" name="login" placeholder="&nbsp; Login" value="<?php if(!empty($_POST['login'])) echo $_POST['login'] ?>"/>
-                            <img src="Images/Icônes/ic-login.png" />
-                            <div class="error-form" id="error-1"></div>
-                            <br/><br/>
-                                <input class="inputText" type="password" error="error-2" name="password" placeholder="&nbsp; Password"/>
+                <br/><br/><br/><br/>
+                <div class = "loginForm"><h1>&nbsp; Login Form: </h1></div>
+                        <div class = "forme">
+                            <form action="PageConnexion.php" method="POST" id="form-connexion">
+                                <br/>
+                                <input class="inputText" type="text" error="error-1" name="login" placeholder="&nbsp; Login" value="<?php if(!empty($_POST['login'])) echo $_POST['login'] ?>"/>
                                 <img src="Images/Icônes/ic-login.png" />
-                                <div class="error-form" id="error-2"></div>
-                                <br/><br/><br/>
-                                <button class="submit" type="submit" name="connexion">Connexion</button>
-                                <a href="index.php?lien=creer_jr">S'inscrire pour Jouer?</a>
-                        </form>
-                    </div>
+                                <div class="error-form" id="error-1"></div>
+                                <br/><br/>
+                                    <input class="inputText" type="password" error="error-2" name="password" placeholder="&nbsp; Password"/>
+                                    <img src="Images/Icônes/ic-login.png" />
+                                    <div class="error-form" id="error-2"></div>
+                                    <br/><br/><br/>
+                                    <button class="submit" type="submit" name="connexion">Connexion</button>
+                                    <a href="index.php?lien=creer_jr">S'inscrire pour Jouer?</a>
+                            </form>
+                        </div>
             </div>
             <script>
                 const inputs = document.getElementsByTagName("input");

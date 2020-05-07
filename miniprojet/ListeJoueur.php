@@ -3,11 +3,6 @@ session_start();
 if(!$_SESSION['Admin']){
     header('location: index.php');
 }
-else{
-    if(isset($_POST['deconnexion'])){
-        header('location: deconnexion.php');
-    }
-}
 
 $js = file_get_contents('fichier.json');
 $js = json_decode($js, true);
@@ -31,10 +26,10 @@ else{
     $pageActuelle = 1;
 }
 if (isset($_POST['suivant'])) {
-    header('index.php?lien=liste_jr&page=' . ($pageActuelle+1));
+    header('location: index.php?lien=liste_jr&page='.($pageActuelle+1));
 }
 if (isset($_POST['prec'])) {
-    header('location: index.php?lien=liste_jr&page=' . ($pageActuelle-1));
+    header('location: index.php?lien=liste_jr&page='.($pageActuelle-1));
 }
 $IndiceDepart = ($pageActuelle - 1)*$NbrValeurParPage;
 $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
@@ -61,9 +56,15 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                    
                     
                     <div class="deconnexion">
-                        <form action="ListeJoueur.php" method="POST">
-                            <input class="dec" type="submit" name="deconnexion" value="Déconnexion" />
-                        </form>
+                        <button class="dec" name="deconnexion" onclick="deconnexion()">Déconnexion</button>
+                        <script>
+                            function deconnexion() {
+                                var r = confirm("Voulez vous vraiment vous deconnecter?");
+                                if (r == true) {
+                                    location.replace("deconnexion.php")
+                                }
+                            }
+                        </script>
                     </div>
                     
                 </div>
@@ -80,40 +81,14 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                             </div>
                         </div>
                         
-                        <div class="liste">
-                            <a class="icones" href="index.php?lien=liste_qst">
-                               <img  src="Images\Icônes\ic-liste.png"/>
-                            </a>
-                            &nbsp;&nbsp;&nbsp; Liste Questions    
-                        </div>
-                        
-                        <div class="liste">
-                            <a class="icones" href="index.php?lien=admin">
-                               <img  src="Images\Icônes\ic-ajout-active.png"/>
-                            </a>
-                            &nbsp;&nbsp;&nbsp; Créer Admin 
-                        </div>
-                        <div class="liste" style="background-color:   silver;">
-                               <div class="list-courant"></div>           
-                               <a class="icones" href="index.php?lien=liste_jr">
-                               <img  src="Images\Icônes\ic-liste.png"/>
-                               </a>
-                            &nbsp;&nbsp;&nbsp; Liste Joueurs   
-                        </div>
-                        
-                        <div class="liste">
-                            <a class="icones" href="index.php?lien=creer_qst">
-                               <img  src="Images\Icônes\ic-ajout-active.png"/>
-                            </a>
-                            &nbsp;&nbsp;&nbsp; Créer Questions 
-                        </div>
+                        <ul>
+                            <li><a href="index.php?lien=liste_qst">&nbsp;&nbsp;&nbsp;Liste Questions <img class="icones" src="Images\Icônes\ic-liste.png"/></a></li>
+                            <li><a href="index.php?lien=admin">&nbsp;&nbsp;&nbsp;Creer Admin <img class="icones" src="Images\Icônes\ic-ajout-active.png"/> </a></li>
+                            <li><a class="active" href="index.php?lien=liste_jr"><div></div>&nbsp;&nbsp;&nbsp;Liste Joueurs <img class="icones" src="Images\Icônes\ic-liste.png"/> </a></li>
+                            <li><a href="index.php?lien=creer_qst">&nbsp;&nbsp;&nbsp;Creer Questions <img class="icones" src="Images\Icônes\ic-ajout-active.png"/> </a></li>
+                            <li><a href="index.php?lien=statistiques">&nbsp;&nbsp;&nbsp;Statistiques <img class="icones" src="Images\Icônes\ic-sta.png"/> </a></li>
+                        </ul>
 
-                        <div class="liste">
-                            <a class="icones" href="index.php?lien=statistiques">
-                            <img  src="Images\Icônes\ic-sta.png"/>
-                            </a>
-                            &nbsp;&nbsp;&nbsp; Statistiques 
-                        </div>
                     </div>
                     <div class="CreerAdmin">
                         <center>

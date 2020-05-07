@@ -1,7 +1,6 @@
 body{
     width: 100%;
     background-image: url(Images/img-bg.jpg);
-    background-repeat: no-repeat;
     background-size: 100%;
     height: 830px;
     font-family: Helvetica;
@@ -33,9 +32,9 @@ a{
 /* PageConnexion */
 
 .admin{
-    margin-top: 50px;
-    width: 800px;
-    height: 500px;
+    margin-top: 3%;
+    width: 60%;
+    height: 60%;
 }
 
 .forme{
@@ -84,9 +83,10 @@ label{
 
 select{
     background-color: #F5F5F5;
-    width: 383px;
-    margin-left: 55px;
-    height: 30px;
+    margin-left: 2%;
+    width: 60%;
+    height: 50px;
+    border-radius: 5px;
 }
 .inputText{
     width: 90%;
@@ -231,7 +231,7 @@ h3{
 }
 .list-courant{
     background-color: green; 
-    position:absolute; 
+    position: absolute;
     width:10px; 
     height:50px; 
     float:left
@@ -479,6 +479,44 @@ h3{
     float: left;
     margin-top: 8%;
 }
+
+ul {
+    list-style-type: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+    }
+
+    li a {
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    margin: 0;
+    color: #000;
+    width: 100%;
+    text-decoration: none;
+    }
+    li a:hover {
+    background-color: silver;
+    color: white;
+    }
+    li a.active {
+        background-color: silver;
+        color: white;
+    }
+    li div{
+        background-color: green; 
+        position: absolute;
+        width:10px; 
+        height:50px; 
+        float:left 
+    }
+    li a:hover:not(.active) {
+        background-color: #555;
+        color: white;
+    }
+
 .liste{
     line-height:50px; 
     height:50px; 
@@ -487,6 +525,7 @@ h3{
 .icones{
     float: right; 
     margin: 0%;
+    margin-top: 15px;
 }
 
 .bordure-bleu{
@@ -508,6 +547,13 @@ h3{
     margin-left: 5%;
     height: 77%;
 }
+
+.TEXT-AREA{
+    margin: 1%;
+    width: 70%;
+    height: 20%;
+}
+
 .liste-Qestion-suivant{
     height: 10%;
     background-color: silver;
@@ -520,7 +566,7 @@ h3{
 
 .liste-Joueur-suivant{
     height: 10%;
-    margin-top: 50%;
+    margin-top: 5%;
     width: 100%;
 }
 
@@ -566,6 +612,14 @@ th{
     color:silver;
 }
 
+.btn-supp{
+    width: 5%;
+}
+
+.ic-supp{
+    margin:0;
+}
+
 .T-score{
     float: left; 
     margin-left: 2%; 
@@ -609,4 +663,166 @@ th{
 .affich-score table{
     border: none;
     padding-top: 5%;
+}
+
+.lien-sta{
+    width: 33%; 
+    float: left; 
+    text-align: center
+}
+
+
+@media only screen and (max-width: 1024px) {
+    .h{
+        width: 70%; 
+        margin-left: 10%; 
+        text-align: center;
+        color: white;
+        font-family: Myriad Pro;
+        font-size: 90%;
+    }
+    .dec{
+        float: right;
+        height: 30px;
+        background-color: #3ADDD6;
+        font-size: 100%;
+        margin-right: 2%;
+        width: 20%;
+    
+    }
+    h2{
+        font-size: 100%;
+    }
+    .reponses{
+        margin-left: 12%;
+        margin-top:10%;
+        font-size:200%
+    }
+    .T-score{
+        float: left; 
+        margin-left: 2%; 
+        margin-top:2%; 
+        width: 48%; 
+        height:6%; 
+        text-align: center; 
+        color: silver;
+    }
+    
+    .T-score a{
+        line-height: 2%; 
+        text-decoration: none;
+        font-size: 65%;
+        margin-left: 10%;
+    }
+    
+    .M-score{
+        float: left; 
+        margin-right: 2%; 
+        margin-top:2%; 
+        width: 48%; 
+        height:6%;
+    }
+    
+    .M-score a{
+        line-height: 100%; 
+        color: #3ADDD6;
+        margin-left:0%; 
+        text-decoration: none;
+        font-size: 60%;
+        text-align: center;
+        margin-top: 10%;
+        margin-right: 2%;
+    }
+
+    .affich-score{
+        clear: both; 
+        width: 96%; 
+        margin-left: 2%; 
+        height: 91%;
+        background-color: white;
+        
+    }
+    
+    .affich-score table{
+        border: none;
+        padding-top: 5%;
+        font-size: 60%
+    }
+
+    li a{
+        font-size: 100%;
+    }
+
+    .Liste-qst{
+        font-size: 50%;
+    }
+
+    .label-nbre{
+        float:right; 
+        margin-right: 2%; 
+        font-size: 200%; 
+        color:silver;
+        margin-top: 11%;
+        margin-bottom: 4%;
+    }
+    .input-OK{
+        margin-top: 10%;
+    }
+    .input-nbre{
+        margin-top: 10%;
+    }
+
+    .reponse{
+        margin-left: 9%;
+    }
+
+    .btn-suiv{
+        font-size: 15px; 
+        width: 20%;
+    }
+    
+    .btn-prec{
+        font-size: 15px; 
+        width: 25%;
+    }
+    .fichier{
+        font-size: 48%;
+        width: 30%;
+        height: 4%;
+    }
+
+    .submit1{
+        height: 8%;
+        margin-left: 10%;
+        font-size: large;
+        width: 150px;
+    }
+    .TEXT-AREA{
+        width: 60%;
+        height: 15%;
+    }
+    label{
+        margin-left: 10px;
+        float: left;
+        margin-top: 10px;
+        text-align: left;
+        font-size: 50%;
+    }
+    .inputText{
+            width: 90%;
+            height: 30px;
+    }
+    select{
+        width: 40%;
+        font-size: 60%;
+    }
+    .btn-supp{
+        background-color: white;
+        border: none;
+    }
+
+    .lien-sta a{
+        font-size: 150%;
+    }
+
 }

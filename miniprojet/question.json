@@ -1,1 +1,114 @@
-{"Questions":[{"question":"Les langages Web ","score":"7","type":"choixM","reponse":["HTML","R","PHP"],"vrai":["PHP","HTML"]},{"question":"D'o\u00f9 vient le Covid19","score":"10","type":"choixS","reponse":["Italy","Chine"],"vrai":["Chine"]},{"question":"Quel est la capitale du S\u00e9n\u00e9gal","score":"5","type":"choixT","reponse":"Dakar"},{"question":"Quelle est la premi\u00e8re \u00e9cole de codage gratuite au S\u00e9n\u00e9gal?","score":"10","type":"choixS","reponse":["Orange Digital Center ","Simplon"],"vrai":["Simplon"]},{"question":"Les pr\u00e9curseurs de la r\u00e9volution digital","score":"7","type":"choixS","reponse":["GAFAM","CIA-FBI"],"vrai":["GAFAM"]},{"question":"Qui a cr\u00e9er Facebook?","score":"25","type":"choixS","reponse":["Mark Zuckerberg","Bill Gates","Steve Jobs"],"vrai":["Mark Zuckerberg"]},{"question":"Quelle \u00e9quipe a remport\u00e9 la coupe du monde 2010","score":"10","type":"choixS","reponse":["France","Pays Bas","Espagne"],"vrai":["Espagne"]}],"nbre-qst":"5"}
+{
+    "Questions": [
+        {
+            "question": "Les langages Web ",
+            "score": "7",
+            "type": "choixM",
+            "reponse": [
+                "HTML",
+                "R",
+                "PHP"
+            ],
+            "vrai": [
+                "PHP",
+                "HTML"
+            ]
+        },
+        {
+            "question": "D'o\u00f9 vient le Covid19",
+            "score": "10",
+            "type": "choixS",
+            "reponse": [
+                "Italy",
+                "Chine"
+            ],
+            "vrai": [
+                "Chine"
+            ]
+        },
+        {
+            "question": "Quel est la capitale du S\u00e9n\u00e9gal",
+            "score": "5",
+            "type": "choixT",
+            "reponse": "Dakar"
+        },
+        {
+            "question": "Quelle est la premi\u00e8re \u00e9cole de codage gratuite au S\u00e9n\u00e9gal?",
+            "score": "10",
+            "type": "choixS",
+            "reponse": [
+                "Orange Digital Center ",
+                "Simplon"
+            ],
+            "vrai": [
+                "Simplon"
+            ]
+        },
+        {
+            "question": "Les pr\u00e9curseurs de la r\u00e9volution digital",
+            "score": "7",
+            "type": "choixS",
+            "reponse": [
+                "GAFAM",
+                "CIA-FBI"
+            ],
+            "vrai": [
+                "GAFAM"
+            ]
+        },
+        {
+            "question": "Qui a cr\u00e9er Facebook?",
+            "score": "25",
+            "type": "choixS",
+            "reponse": [
+                "Mark Zuckerberg",
+                "Bill Gates",
+                "Steve Jobs"
+            ],
+            "vrai": [
+                "Mark Zuckerberg"
+            ]
+        },
+        {
+            "question": "Quelle \u00e9quipe a remport\u00e9 la coupe du monde 2010",
+            "score": "10",
+            "type": "choixS",
+            "reponse": [
+                "France",
+                "Pays Bas",
+                "Espagne"
+            ],
+            "vrai": [
+                "Espagne"
+            ]
+        },
+        {
+            "question": "Qui remport\u00e9 le ballon FIFA 2019",
+            "score": "7",
+            "type": "choixS",
+            "reponse": [
+                "Sadio Mane",
+                "M\u00e9ssi",
+                "Ronaldo"
+            ],
+            "vrai": [
+                "M\u00e9ssi"
+            ]
+        },
+        {
+            "question": "Les finalistes de la ligue des champions 2018",
+            "score": "15",
+            "type": "choixM",
+            "reponse": [
+                "R\u00e9al Madrid",
+                "Man City",
+                "Liverpool"
+            ],
+            "vrai": [
+                "R\u00e9al Madrid",
+                "Liverpool"
+            ]
+        }
+    ],
+    "nbre-qst": "5"
+}

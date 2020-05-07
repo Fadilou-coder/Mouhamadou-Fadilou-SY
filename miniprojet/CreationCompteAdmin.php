@@ -3,10 +3,6 @@ session_start();
 if(!($_SESSION['Admin'])){
     header('location: index.php');
 }
-if(isset($_POST['deconnexion'])){
-    header('location: deconnexion.php');
-}
-
 ?>
 <html>
 <head>
@@ -30,9 +26,15 @@ if(isset($_POST['deconnexion'])){
                    
                     
                     <div class="deconnexion">
-                        <form action="CreationCompteAdmin.php" method="POST">
-                            <button class="dec" type="submit" name="deconnexion">Déconnexion</button>
-                        </form>
+                        <button class="dec" name="deconnexion" onclick="deconnexion()">Déconnexion</button>
+                        <script>
+                            function deconnexion() {
+                                var r = confirm("Voulez vous vraiment vous deconnecter?");
+                                if (r == true) {
+                                    location.replace("deconnexion.php")
+                                }
+                            }
+                        </script>
                     </div>
                     
                 </div>
@@ -49,40 +51,14 @@ if(isset($_POST['deconnexion'])){
                             </div>
                         </div>
                         
-                        <div class="liste">
-                            <a class="icones" href="index.php?lien=liste_qst">
-                               <img  src="Images\Icônes\ic-liste.png"/>
-                            </a>
-                            &nbsp;&nbsp;&nbsp; Liste Questions    
-                        </div>
-                        
-                        <div style="background-color:   silver;" class="liste">
-                            <div class="list-courant"></div>
-                            <a class="icones" href="index.php?lien=admin">
-                               <img  src="Images\Icônes\ic-ajout-active.png"/>
-                            </a>
-                            &nbsp;&nbsp;&nbsp; Créer Admin 
-                        </div>
-                        <div class="liste">           
-                               <a class="icones" href="index.php?lien=liste_jr">
-                               <img  src="Images\Icônes\ic-liste.png"/>
-                               </a>
-                            &nbsp;&nbsp;&nbsp; Liste Joueurs   
-                        </div>
-                        
-                        <div class="liste">
-                            <a class="icones" href="index.php?lien=creer_qst">
-                               <img  src="Images\Icônes\ic-ajout-active.png"/>
-                            </a>
-                            &nbsp;&nbsp;&nbsp; Créer Questions 
-                        </div>
+                        <ul>
+                            <li><a href="index.php?lien=liste_qst">&nbsp;&nbsp;&nbsp;Liste Questions <img class="icones" src="Images\Icônes\ic-liste.png"/></a></li>
+                            <li><a class="active" href="index.php?lien=admin"><div></div>&nbsp;&nbsp;&nbsp;Creer Admin <img class="icones" src="Images\Icônes\ic-ajout-active.png"/> </a></li>
+                            <li><a href="index.php?lien=liste_jr">&nbsp;&nbsp;&nbsp;Liste Joueurs <img class="icones" src="Images\Icônes\ic-liste.png"/> </a></li>
+                            <li><a href="index.php?lien=creer_qst">&nbsp;&nbsp;&nbsp;Creer Questions <img class="icones" src="Images\Icônes\ic-ajout-active.png"/> </a></li>
+                            <li><a href="index.php?lien=statistiques">&nbsp;&nbsp;&nbsp;Statistiques <img class="icones" src="Images\Icônes\ic-sta.png"/> </a></li>
+                        </ul>
 
-                        <div class="liste">
-                            <a class="icones" href="index.php?lien=statistiques">
-                            <img  src="Images\Icônes\ic-sta.png"/>
-                            </a>
-                            &nbsp;&nbsp;&nbsp; Statistiques 
-                        </div>
                     </div>
                     <div class="CreerAdmin">
                     <div style="margin-left: 20px">

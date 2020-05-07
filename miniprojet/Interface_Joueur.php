@@ -4,8 +4,8 @@ if(!$_SESSION['User']){
     header('location: index.php');
 }
 $js = file_get_contents('fichier.json');
-$qst = file_get_contents('question.json');
 $js = json_decode($js, true);
+$qst = file_get_contents('question.json');
 $qst = json_decode($qst, true);
 foreach ($js['Users'] as $key => $row) {
     $pts[$key]  = $row['pts'];;
@@ -44,7 +44,6 @@ if (isset($_GET['jeu'])) {
 else {
     $jeu = 'encours';
 }
-
 if (isset($_POST['suivant'])) {
         $_SESSION['reponse'][$pageActuelle] = array();
         $_SESSION['reponse'][$pageActuelle][] = "";
@@ -349,7 +348,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                                             }
                                             if (isset($_SESSION['qst-trouver'])) {
                                                 for ($i=0; $i < count($_SESSION['qst-trouver']) ; $i++) { 
-                                                    if ($_SESSION['qst-trouver'][$i]){
+                                                    if (isset($_SESSION['qst-trouver'][$i])){
                                                         $js['Users'][$ind_user]['qst-trouver'][] = $_SESSION['qst-trouver'][$i];
                                                     }
                                                 }
