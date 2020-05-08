@@ -83,7 +83,7 @@ if(!$_SESSION['Admin']){
                             btn.setAttribute("type","button");
                             btn.setAttribute("name","supp"+nbInput);
                             btn.setAttribute("class","btn-supp");
-                            btn.innerHTML = '<img  class= "ic-supp" src="Images/Icônes/ic-supprimer.png" onclick="supp_champs('+nbInput+')" />';
+                            btn.innerHTML = '<img  class= "ic-supp" src="Images/Icones/ic-supprimer.png" onclick="supp_champs('+nbInput+')" />';
                             ligne.appendChild(btn);
                             nbInput++;
                         }
@@ -126,7 +126,7 @@ if(!$_SESSION['Admin']){
                                 btn.setAttribute("type","button");
                                 btn.setAttribute("name","ligne"+nbInput);
                                 btn.setAttribute("class","btn-supp");
-                                btn.innerHTML = '<img  class= "ic-supp"  src="Images/Icônes/ic-supprimer.png" onclick="supp_champs('+nbInput+')" />';
+                                btn.innerHTML = '<img  class= "ic-supp"  src="Images/Icones/ic-supprimer.png" onclick="supp_champs('+nbInput+')" />';
                                 ligne.appendChild(btn);
                                 nbInput++;
                             }
@@ -139,6 +139,23 @@ if(!$_SESSION['Admin']){
                 inp.remove();
                 if (nbInput>=nbre) {
                     nbre = l+1; 
+                }
+                if (l==2) {
+                    if (nbre == 2) {
+                        nbre=3;
+                        l=1;
+                    }
+                    if (nbre == 1) {
+                        var inp = document.getElementById("ligne"+1);
+                        inp.remove();
+                        nbre = 3;
+                        l=0;
+                    }
+                    
+                }
+                if (l==1 && nbre==1) {
+                    l=0;
+                    nbre = 2;
                 }
                 nbInput = l;
             }
@@ -176,8 +193,8 @@ if(!$_SESSION['Admin']){
                 <div class="milieu1IJ" style="background-color:  rgb(233, 233, 233); ">
                     <br/>
                     <div class="MenuAdmin">
-                        <div style="height: 50%; background-color: #73DEF0;">
-                            <div style="width: 50%; margin-left:20%; margin-top: 10%" class="avatar">
+                        <div class="profil-admin">
+                            <div class="avatar-admin">
                                 <img class="photo"  src=" <?php echo $_SESSION['profil']  ?>" />
                                 <h1>
                                     <?php echo $_SESSION['prenom']." ".$_SESSION['nom'] ?>
@@ -187,11 +204,11 @@ if(!$_SESSION['Admin']){
                         </div>
                         
                         <ul>
-                            <li><a href="index.php?lien=liste_qst">&nbsp;&nbsp;&nbsp;Liste Questions <img class="icones" src="Images\Icônes\ic-liste.png"/></a></li>
-                            <li><a href="index.php?lien=admin">&nbsp;&nbsp;&nbsp;Creer Admin <img class="icones" src="Images\Icônes\ic-ajout-active.png"/> </a></li>
-                            <li><a href="index.php?lien=liste_jr">&nbsp;&nbsp;&nbsp;Liste Joueurs <img class="icones" src="Images\Icônes\ic-liste.png"/> </a></li>
-                            <li><a class="active" href="index.php?lien=creer_qst"><div></div>&nbsp;&nbsp;&nbsp;Creer Questions <img class="icones" src="Images\Icônes\ic-ajout-active.png"/> </a></li>
-                            <li><a href="index.php?lien=statistiques">&nbsp;&nbsp;&nbsp;Statistiques <img class="icones" src="Images\Icônes\ic-sta.png"/> </a></li>
+                            <li><a href="index.php?lien=liste_qst">&nbsp;&nbsp;&nbsp;Liste Questions <img class="icones" src="Images\Icones\ic-liste.png"/></a></li>
+                            <li><a href="index.php?lien=admin">&nbsp;&nbsp;&nbsp;Creer Admin <img class="icones" src="Images\Icones\ic-ajout-active.png"/> </a></li>
+                            <li><a href="index.php?lien=liste_jr">&nbsp;&nbsp;&nbsp;Liste Joueurs <img class="icones" src="Images\Icones\ic-liste.png"/> </a></li>
+                            <li><a class="active" href="index.php?lien=creer_qst"><div></div>&nbsp;&nbsp;&nbsp;Creer Questions <img class="icones" src="Images\Icones\ic-ajout-active.png"/> </a></li>
+                            <li><a href="index.php?lien=statistiques">&nbsp;&nbsp;&nbsp;Statistiques <img class="icones" src="Images\Icones\ic-sta.png"/> </a></li>
                         </ul>
 
                     </div>
@@ -215,10 +232,10 @@ if(!$_SESSION['Admin']){
                                         <option value="choixT">Choix Texte</option>
                                     </select>
                                     <button class="AjoutReponse" name="ajout" type="button" onclick="ajouterChamps()" >
-                                        <img style="margin:0;"  src="Images\Icônes\ic-ajout-réponse.png"/>
+                                        <img style="margin:0;"  src="Images\Icones\ic-ajout-reponse.png"/>
                                     </button>
                                     <div class="error-form" id="error-3"></div><br/>
-                                <div id="formulaire" >
+                                <div class="rps" id="formulaire" >
                                 </div>
                                 <button class="Enregistrer-qst" type="submit" name="valider">Enregistrer</button>
                         </form>

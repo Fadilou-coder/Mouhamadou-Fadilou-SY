@@ -108,6 +108,20 @@
                 "R\u00e9al Madrid",
                 "Liverpool"
             ]
+        },
+        {
+            "question": "Anciens Pr\u00e9sidents du S\u00e9n\u00e9gal",
+            "score": "7",
+            "type": "choixM",
+            "reponse": [
+                "Abdoulaye Wade",
+                "Tanor Dieng",
+                "Abdou Diouf"
+            ],
+            "vrai": [
+                "Abdoulaye Wade",
+                "Abdou Diouf"
+            ]
         }
     ],
     "nbre-qst": "5"

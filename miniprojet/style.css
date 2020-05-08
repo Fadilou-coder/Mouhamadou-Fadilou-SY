@@ -40,7 +40,7 @@ a{
 .forme{
     background-color: #f8fdfd;
     width: 70%;
-    height: 60%;
+    height: 70%;
 }
 
 .loginForm{
@@ -90,7 +90,7 @@ select{
 }
 .inputText{
     width: 90%;
-    height: 50px;
+    height: 40px;
     border-radius: 5px;
 }
 
@@ -196,7 +196,7 @@ h3{
 }
 
 .submit1{
-    height: 50px;
+    height: 30px;
     background-color: #3ADDD6;
     border-radius: 10px;
     margin-left: 30%;
@@ -221,7 +221,7 @@ h3{
 }
 
 .fichier{
-    height: 50px;
+    height: 30px;
     background-color: #3ADDD6;
     border-radius: 10px;
     float: right;
@@ -251,6 +251,20 @@ h3{
     width: 100%;
     height: 100px;
     background-color: #3ADDD6;
+}
+
+.profil-admin{
+    height: 30%; 
+    background-color: #73DEF0;
+}
+
+.avatar-admin{
+    height: 75%;
+    font-size: 10px;
+    text-align: center;
+    width: 50%; 
+    margin-left:20%; 
+    margin-top: 2%;
 }
 
 .dec{
@@ -417,7 +431,7 @@ h3{
 .bouton{
     clear: both;
     margin-left: 5%;
-    margin-top: 10%;
+    margin-top: 5%;
     margin-right: 5%;
 }
 
@@ -436,6 +450,13 @@ h3{
 }
 .Suiv{
     background-color: #3ADDD6;
+    height: 40px;
+    float: right;
+    width: 120px;
+}
+
+.rejouer{
+    background-color: rgb(58, 221, 107);
     height: 40px;
     float: right;
     width: 120px;
@@ -477,7 +498,7 @@ h3{
     border-radius: 10px;
     height: 70%; 
     float: left;
-    margin-top: 8%;
+    margin-top: 4%;
 }
 
 ul {
@@ -672,7 +693,200 @@ th{
 }
 
 
+@media only screen and (max-width: 765px) {
+    .deconnexion{
+        font-size: 10px;
+    }
+    li{
+        font-size: 10px; 
+    }
+    li a{
+        height: 30px;
+        line-height: 30px;
+    }
+    li a div{
+        width: 1%;
+        height: 30px;
+    }
+    li a img{
+        height: 10px;
+    }
+
+    .profil-admin{
+        height: 30%;
+        font-size: 5px;
+        margin-top: 0;
+    }
+
+    .avatar-admin{
+        font-size: 5px;
+        margin-top: 0;
+    }
+    
+
+    table{
+        margin-top: 20px;
+        width: 90%;
+        font-size: 10px;
+    }
+    .milieuIJ{
+        height: 600px;
+    }
+
+    .lien-sta{
+        font-size: 60%;
+    }
+
+    .lien-sta a{
+        font-size: 80%;
+    }
+
+    .forme label{
+        font-size: 10px;
+    }
+
+    .forme .fichier{
+        font-size: 5px;
+    }
+    .forme .submit1{
+        width: 80px;
+        font-size: 8px;
+    }
+    .Parametrer{
+        font-size: 15px;
+    }
+    .bordure-bleu label{
+        font-size: 8px;
+    }
+    .bordure-bleu .select{
+        height: 30px;
+        width: 40%;
+        font-size: 8px;
+    }
+    .bordure-bleu .AjoutReponse{
+        height: 30px;
+        width: 20px;
+        margin-right: 10%;
+        background-color: white;
+        border: none;
+    }
+
+    .bordure-bleu img{
+        height: 25px;
+        width: 18px;
+        margin: 0;
+    }
+
+    .bordure-bleu .Enregistrer-qst{
+        height: 30px;
+        width: 40%;
+        font-size: 250%;
+    }
+
+    .bordure-bleu .rps {
+        width: 50%;
+        margin-left: 10%;
+    }
+
+    .bordure-bleu .btn-supp{
+        position: absolute;
+    }
+
+
+    .forme .submit{
+        width: 40%;
+        height: 10%;
+        font-size: 200%;
+        margin-left: 30%;
+    }
+    .forme a{
+        font-size: 200%;
+    }
+
+}
+
+@media only screen and (max-width: 765px) {
+    .Liste-qst{
+        font-size: 5px;
+    }
+
+    form{
+        font-size: 5px;
+    }
+
+    .label-nbre{  
+        font-size: 5px;
+        margin-bottom: 4%;
+
+    }
+    .list-question{
+        margin-top: 10%;
+        font-size: 8px;
+        line-height: 6px;
+    }
+    .input-OK{
+        margin-top: 10%;
+        height: 3%;
+    }
+    .input-nbre{
+        margin-top: 10%;
+        height: 3%;
+    }
+    .liste-Qestion-suivant .btn-suiv{
+        font-size: 10px; 
+        margin-top: 10px;
+    }
+    
+    .liste-Qestion-suivant .btn-prec{
+        font-size: 10px; 
+        margin-top: 10px;
+    }
+    .score .T-score a{
+        line-height: 2%; 
+        text-decoration: none;
+        font-size: 40%;
+        text-align: center;
+    }
+    .bouton .prec{
+        width: 30%;
+        height: 5%;
+        font-size: 70%;
+    }
+    .bouton .Suiv{
+        width: 30%;
+        height: 5%;
+    }
+    .bouton .rejouer{
+        width: 30%;
+        height: 25%;
+    }
+
+    .bouton .quit{
+        width: 30%;
+        height: 5%;
+        margin-right: 35%;
+    }
+    .question h2{
+        font-size: 15px;
+    }
+
+    .reponses form{
+        font-size: 20px;
+    }
+
+    .affich-score{
+        font-size: 10px;
+    }
+    table{
+        font-size: 10px;
+    }
+}
+
+
 @media only screen and (max-width: 1024px) {
+    body{
+        height: 700px;
+    }
     .h{
         width: 70%; 
         margin-left: 10%; 
@@ -682,11 +896,7 @@ th{
         font-size: 90%;
     }
     .dec{
-        float: right;
-        height: 30px;
-        background-color: #3ADDD6;
         font-size: 100%;
-        margin-right: 2%;
         width: 20%;
     
     }
@@ -721,6 +931,7 @@ th{
         margin-top:2%; 
         width: 48%; 
         height:6%;
+
     }
     
     .M-score a{
@@ -826,3 +1037,4 @@ th{
     }
 
 }
+

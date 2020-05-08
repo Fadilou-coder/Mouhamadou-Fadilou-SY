@@ -77,7 +77,7 @@ if (isset($_POST['suivant'])) {
             }
             elseif($qst['Questions'][$_SESSION['qst_a_jouer'][$pageActuelle-1]]['type'] == "choixT"){
                 $_SESSION['reponse'][$pageActuelle][0] = $_POST['reponse'];
-                if (isset($_POST['reponse']) && $_POST['reponse'] == $qst['Questions'][$_SESSION['qst_a_jouer'][$pageActuelle-1]]['reponse']) {
+                if (isset($_POST['reponse']) && !strcasecmp($_POST['reponse'], $qst['Questions'][$_SESSION['qst_a_jouer'][$pageActuelle-1]]['reponse'])) {
                     $_SESSION['score']+=$qst['Questions'][$_SESSION['qst_a_jouer'][$pageActuelle-1]]['score'];
                     $_SESSION['qst-trouver'][$pageActuelle-1] = $qst['Questions'][$_SESSION['qst_a_jouer'][$pageActuelle-1]];
                 }
@@ -342,7 +342,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                                     else{
 
                                         if ($jeu === "terminer" && !isset($_POST['rejouer'])) {
-                                            echo '<input class="Suiv" type="submit" name="rejouer" value="Rejouer" />';
+                                            echo '<input class="rejouer" type="submit" name="rejouer" value="Rejouer" />';
                                             if($js['Users'][$ind_user]['pts'] < $_SESSION['score']){
                                                 $js['Users'][$ind_user]['pts'] = $_SESSION['score'];
                                             }
@@ -365,6 +365,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
 
                                     }
                                     if (isset($_POST['rejouer'])) {
+                                        
                                         $_SESSION['score'] = 0;
                                         $_SESSION['reponse'] = null;
                                         $js = file_get_contents('fichier.json');

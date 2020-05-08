@@ -67,8 +67,8 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                 <div class="milieu1IJ" style="background-color:  rgb(233, 233, 233); ">
                     <br/>
                     <div class="MenuAdmin">
-                        <div style="height: 50%; background-color: #73DEF0;">
-                            <div style="width: 50%; margin-left:20%; margin-top: 10%" class="avatar">
+                        <div class="profil-admin">
+                            <div class="avatar-admin">
                                 <img class="photo"  src=" <?php echo $_SESSION['profil']  ?>" />
                                 <h1>
                                     <?php echo $_SESSION['prenom']." ".$_SESSION['nom'] ?>
@@ -78,11 +78,11 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                         </div>
                         
                         <ul>
-                            <li><a class="active" href="index.php?lien=liste_qst"><div></div>&nbsp;&nbsp;&nbsp;Liste Questions <img class="icones" src="Images\Icônes\ic-liste.png"/></a></li>
-                            <li><a href="index.php?lien=admin">&nbsp;&nbsp;&nbsp;Creer Admin <img class="icones" src="Images\Icônes\ic-ajout-active.png"/> </a></li>
-                            <li><a href="index.php?lien=liste_jr">&nbsp;&nbsp;&nbsp;Liste Joueurs <img class="icones" src="Images\Icônes\ic-liste.png"/> </a></li>
-                            <li><a href="index.php?lien=creer_qst">&nbsp;&nbsp;&nbsp;Creer Questions <img class="icones" src="Images\Icônes\ic-ajout-active.png"/> </a></li>
-                            <li><a href="index.php?lien=statistiques">&nbsp;&nbsp;&nbsp;Statistiques <img class="icones" src="Images\Icônes\ic-sta.png"/> </a></li>
+                            <li><a class="active" href="index.php?lien=liste_qst"><div></div>&nbsp;&nbsp;&nbsp;Liste Questions <img class="icones" src="Images\Icones\ic-liste.png"/></a></li>
+                            <li><a href="index.php?lien=admin">&nbsp;&nbsp;&nbsp;Creer Admin <img class="icones" src="Images\Icones\ic-ajout-active.png"/> </a></li>
+                            <li><a href="index.php?lien=liste_jr">&nbsp;&nbsp;&nbsp;Liste Joueurs <img class="icones" src="Images\Icones\ic-liste.png"/> </a></li>
+                            <li><a href="index.php?lien=creer_qst">&nbsp;&nbsp;&nbsp;Creer Questions <img class="icones" src="Images\Icones\ic-ajout-active.png"/> </a></li>
+                            <li><a href="index.php?lien=statistiques">&nbsp;&nbsp;&nbsp;Statistiques <img class="icones" src="Images\Icones\ic-sta.png"/> </a></li>
                         </ul>
 
                     </div>
