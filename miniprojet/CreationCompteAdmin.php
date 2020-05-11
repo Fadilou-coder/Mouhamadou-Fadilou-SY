@@ -94,7 +94,7 @@ if(!($_SESSION['Admin'])){
                         <label>Avatar</label>
                         <input error="error-6" class="fichier" type="file" name="fichier" id="fichier" accept="image/*" onchange="loadFile(event)"/>
                         <br/><br/><br/>
-                        <div class="error-form" id="error-6"></div>
+                        <div class="error-form" id="error-6"></div><br/>
                         <button class="submit1" type="submit" name="valider">Créer Compte</button>
                     </form>
                     </div>
@@ -111,7 +111,7 @@ if(!($_SESSION['Admin'])){
                             for(input of inputs){
                                 input.addEventListener("keyup",function(e){
                                     if(e.target.hasAttribute("error")){
-                                        var idDivError = input.getAttribute("error");
+                                        var idDivError = e.target.getAttribute("error");
                                         document.getElementById(idDivError).innerText = ""
                                     }
                                 })
@@ -121,20 +121,22 @@ if(!($_SESSION['Admin'])){
                                 var error = false;
                                 for(input of inputs){
                                     if(input.hasAttribute("error")){
-                                        idDivError = input.getAttribute("error");
+                                        idDivError = input.getAttribute("error")
                                         if(!input.value){
                                                 document.getElementById(idDivError).innerText = "ce champs est obligatoire";
                                                 error = true;
                                         }
+                                        
                                         
                                     }else{
                                             document.getElementById(idDivError).innerText = "";
                                         }
                                 }
                                 if(error){
-                                    e.preventDefaut();
+                                    e.preventDefault();
                                     return false;
                                 }
+
                                 
                             })
                     

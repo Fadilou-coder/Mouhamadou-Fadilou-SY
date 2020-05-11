@@ -22,6 +22,9 @@
             case 'statistiques':
                 require_once("Statistiques.php");
                 break;
+            case 'result':
+                require_once("result.php");
+            break;
         }
     }
     else{

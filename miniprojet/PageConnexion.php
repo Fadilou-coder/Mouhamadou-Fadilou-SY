@@ -19,55 +19,22 @@ session_start();
                 <br/><br/><br/><br/>
                 <div class = "loginForm"><h1>&nbsp; Login Form: </h1></div>
                         <div class = "forme">
-                            <form action="PageConnexion.php" method="POST" id="form-connexion">
+                            <form action="" method="POST" id="form-connexion">
                                 <br/>
-                                <input class="inputText" type="text" error="error-1" name="login" placeholder="&nbsp; Login" value="<?php if(!empty($_POST['login'])) echo $_POST['login'] ?>"/>
+                                <input class="inputText" type="text" error="error1" name="login" placeholder="&nbsp; Login" value="<?php if(!empty($_POST['login'])) echo $_POST['login'] ?>"/>
                                 <img src="Images/Icones/ic-login.png" />
-                                <div class="error-form" id="error-1"></div>
+                                <div class="error-form" id="error1"></div>
                                 <br/><br/>
-                                    <input class="inputText" type="password" error="error-2" name="password" placeholder="&nbsp; Password"/>
+                                    <input class="inputText" type="password" error="error2" name="password" placeholder="&nbsp; Password"/>
                                     <img src="Images/Icones/ic-psw.png" />
-                                    <div class="error-form" id="error-2"></div>
+                                    <div class="error-form" id="error2"></div>
                                     <br/><br/><br/>
                                     <button class="submit" type="submit" name="connexion">Connexion</button>
                                     <a href="index.php?lien=creer_jr">S'inscrire pour Jouer?</a>
                             </form>
                         </div>
             </div>
-            <script>
-                const inputs = document.getElementsByTagName("input");
-                for(input of inputs){
-                    input.addEventListener("keyup",function(e){
-                        if(e.target.hasAttribute("error")){
-                            var idDivError = input.getAttribute("error")
-                            document.getElementById(idDivError).innerText = ""
-                        }
-                        return false;
-                    })
-                }
-                document.getElementById("form-connexion").addEventListener("submit",function(e){
-                    const inputs = document.getElementsByTagName("input");
-                    var error = false;
-                    for(input of inputs){
-                        if(input.hasAttribute("error")){
-                            idDivError = input.getAttribute("error")
-                            if(!input.value){
-                                    document.getElementById(idDivError).innerText = "ce champs est obligatoire"
-                                    error = true;
-                            }
-                            
-                        }else{
-                                document.getElementById(idDivError).innerText = ""
-                            }
-                    }
-                    if(error){
-                        e.preventDefaut()
-                        return false;
-                    }
-
-                    
-                })
-            </script>
+            
         </center>
         
     </body>
@@ -155,3 +122,36 @@ if(isset($_POST['connexion'])){
 }
 
 ?>
+
+            <script>
+                const inputs = document.getElementsByTagName("input");
+                for(input of inputs){
+                    input.addEventListener("keyup",function(e){
+                        if(e.target.hasAttribute("error")){
+                            var idDivError = e.target.getAttribute("error");
+                            document.getElementById(idDivError).innerText = ""
+                        }
+                    })
+                }
+                document.getElementById("form-connexion").addEventListener("submit",function(e){
+                    const inputs = document.getElementsByTagName("input");
+                    var error = false;
+                    for(input of inputs){
+                        if(input.hasAttribute("error")){
+                            idDivError = input.getAttribute("error");
+                            if(!input.value){
+                                    document.getElementById(idDivError).innerText = "ce champs est obligatoire"
+                                    error = true;
+                            }
+                            
+                            
+                        }else{
+                                document.getElementById(idDivError).innerText = ""
+                            }
+                    }
+                    if(error){
+                        e.preventDefault();
+                        return false;
+                    }
+                })
+            </script>

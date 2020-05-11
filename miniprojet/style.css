@@ -247,6 +247,14 @@ h3{
     border-radius: 5px;
     margin-left: 2.5%;
 }
+.milieuIJoueur{
+    height: 100%;
+    width: 95%;
+    background-color: rgb(233, 233, 233);
+    margin-top: 15px;
+    border-radius: 5px;
+    margin-left: 2.5%;
+}
 .profil{
     width: 100%;
     height: 100px;
@@ -370,6 +378,10 @@ h3{
     line-height: 10px;
 }
 
+.qst-aff{
+    line-height: 100%;
+}
+
 .choix-mult{
     width:4px; 
     height:4px; 
@@ -460,6 +472,7 @@ h3{
     height: 40px;
     float: right;
     width: 120px;
+    margin-right: 10%;
 }
 .quit{
     background-color: rgb(173, 42, 32);
@@ -692,8 +705,58 @@ th{
     text-align: center
 }
 
+.result{
+    margin-left: 5%; 
+    border-style: solid; 
+    border-color:#51BFD0; 
+    height: 78%;
+    width: 90%;
+}
+
+.aff-score{
+    margin-left: 15%; 
+    margin-top:0.5%; 
+    border-style: solid; 
+    border-color:rgb(202, 45, 40); 
+    height: 8%;
+    width: 70%;
+    border-bottom: none;
+    text-align: center;
+}
+
+.aff-result{
+    margin-top: 2%; 
+    margin-left: 15%;
+    width:90%
+}
+
+.ic-valide{
+    position:absolute; 
+    margin-left:-2%;
+    margin-top:-2%
+}
+
 
 @media only screen and (max-width: 765px) {
+    .question .laqst h2{
+        font-size: 12px;
+        margin-top: -2%;
+    }
+
+    .result{
+        font-size: 12px;
+        height: 73%;
+    }
+    .ic-valide img{
+        width: 30px;
+        height: 30px;
+        margin-top: 2%;
+
+    }
+    .admin{
+        width: 90%;
+        height: 50%;
+    }
     .deconnexion{
         font-size: 10px;
     }
@@ -797,15 +860,28 @@ th{
         width: 40%;
         height: 10%;
         font-size: 200%;
-        margin-left: 30%;
+        margin-left: 5%;
+        margin-top: 10%;
     }
     .forme a{
         font-size: 200%;
+        margin-top: 12%;
+        margin-left: 10%;
     }
 
 }
 
 @media only screen and (max-width: 765px) {
+
+    .list-question .reponse{
+        margin-left: 10%;
+        margin-top: 0.7%;
+    }
+
+    .milieuIJoueur{
+        height: 80%;
+    }
+
     .Liste-qst{
         font-size: 5px;
     }
@@ -844,7 +920,12 @@ th{
     .score .T-score a{
         line-height: 2%; 
         text-decoration: none;
-        font-size: 40%;
+        font-size: 7px;
+        text-align: center;
+    }
+    .score .M-score a{
+        text-decoration: none;
+        font-size: 7px;
         text-align: center;
     }
     .bouton .prec{

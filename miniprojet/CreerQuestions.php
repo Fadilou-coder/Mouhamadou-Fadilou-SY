@@ -44,8 +44,13 @@ if(!$_SESSION['Admin']){
                         champ.setAttribute("name","reponse");
                         champ.setAttribute("class","inputText");
                         champ.setAttribute("style","background-color: #F5F5F5; width: 65%");
+                        champ.setAttribute("id","error-"+(nbInput+4));
                         formulaire.appendChild(label);
                         formulaire.appendChild(champ);
+                        err = document.createElement("div");
+                        err.setAttribute("id","error-"+(nbInput+4));
+                        err.setAttribute("class","error-form");
+                        ligne.appendChild(err);
                     }
                 }
                 else{
@@ -74,6 +79,7 @@ if(!$_SESSION['Admin']){
                             champ.setAttribute("name","reponse"+nbInput);
                             champ.setAttribute("class","inputText");
                             champ.setAttribute("style","background-color: #F5F5F5; width: 65%");
+                            champ.setAttribute("id","error-"+(nbInput+4));
                             ligne.appendChild(champ);
                             check = document.createElement("input");
                             check.setAttribute("type","checkbox");
@@ -85,6 +91,10 @@ if(!$_SESSION['Admin']){
                             btn.setAttribute("class","btn-supp");
                             btn.innerHTML = '<img  class= "ic-supp" src="Images/Icones/ic-supprimer.png" onclick="supp_champs('+nbInput+')" />';
                             ligne.appendChild(btn);
+                            err = document.createElement("div");
+                            err.setAttribute("id","error-"+(nbInput+4));
+                            err.setAttribute("class","error-form");
+                            ligne.appendChild(err);
                             nbInput++;
                         }
                                 
@@ -116,6 +126,7 @@ if(!$_SESSION['Admin']){
                                 champ.setAttribute("name","reponse"+nbInput);
                                 champ.setAttribute("class","inputText");
                                 champ.setAttribute("style","background-color: #F5F5F5; width: 65%");
+                                champ.setAttribute("id","error-"+(nbInput+4));
                                 ligne.appendChild(champ);
                                 radio = document.createElement("input");
                                 radio.setAttribute("type","radio");
@@ -128,6 +139,10 @@ if(!$_SESSION['Admin']){
                                 btn.setAttribute("class","btn-supp");
                                 btn.innerHTML = '<img  class= "ic-supp"  src="Images/Icones/ic-supprimer.png" onclick="supp_champs('+nbInput+')" />';
                                 ligne.appendChild(btn);
+                                err = document.createElement("div");
+                                err.setAttribute("id","error-"+(nbInput+4));
+                                err.setAttribute("class","error-form");
+                                ligne.appendChild(err);
                                 nbInput++;
                             }
                         }
@@ -225,8 +240,8 @@ if(!$_SESSION['Admin']){
                                 <input error="error-2" type="number" name="score" class="inputText" style="width: 10%;" value="<?php if(!empty($_POST['score'])) echo $_POST['score']; ?>"/>
                                 <br/><div class="error-form" id="error-2"></div><br/>
                                     <label>Type de Reponse&nbsp;&nbsp;&nbsp;</label>
-                                    <select error="error-3" id="type" onchange="ajouterChamps()" class="select" name="type">
-                                        <option value= "<?php if(!empty($_POST['type'])) echo $_POST['type']; ?>">Choisiser un type</option>
+                                    <select error="error-3"  id="type" onchange="ajouterChamps()" class="select" name="type">
+                                        <option  value= "<?php if(!empty($_POST['type'])) echo $_POST['type']; ?>">Choisiser un type</option>
                                         <option value="choixM">Choix Multiple</option>
                                         <option value="choixS">Choix Simple</option>
                                         <option value="choixT">Choix Texte</option>
@@ -241,63 +256,7 @@ if(!$_SESSION['Admin']){
                         </form>
                         </div>
                     </div>
-                    <script>
-                        const inputs = document.getElementsByTagName("input");
-                        for(input of inputs){
-                            input.addEventListener("keyup",function(e){
-                                if(e.target.hasAttribute("error")){
-                                    var idDivError = input.getAttribute("error");
-                                        document.getElementById(idDivError).innerText = ""
-                                }
-                                e.preventDefaut();
-                                return false;
-                            })
-                        }
-                        document.getElementById("form-creer").addEventListener("submit",function(e){
-                            const inputs = document.getElementsByTagName("input");
-                            var error = false;
-                            const textareas = document.getElementsByTagName("textarea");
-                            for(textarea of textareas){
-                                if(textarea.hasAttribute("error")){
-                                    idDiv = textarea.getAttribute("error");
-                                    if(!textarea.value){
-                                        document.getElementById(idDiv).innerText = "ce champs est obligatoire";
-                                        error = true;
-                                    }
-                                    else{
-                                        document.getElementById(idDiv).innerText = "";
-                                    }
-                                }
-                            }
-                            const types = document.getElementsByTagName("select");
-                            for(type of types){
-                                if(type.hasAttribute("error")){
-                                    idDiv = type.getAttribute("error");
-                                    if(!type.value){
-                                        document.getElementById(idDiv).innerText = "Veuillez Choisir un type";
-                                        error = true;
-                                    }
-                                    else{
-                                        document.getElementById(idDiv).innerText = "";
-                                    }
-                                }
-                            }
-                                
-                            for(input of inputs){
-                                if(input.hasAttribute("error")){
-                                    idDivError = input.getAttribute("error");
-                                    if(!input.value){
-                                        document.getElementById(idDivError).innerText = "ce champs est obligatoire";
-                                        error = true;
-                                    }              
-                                }else{
-                                    document.getElementById(idDivError).innerText = "";
-                                }
-                            }
-                            e.preventDefaut();
-                            return false;                
-                        })
-                    </script>
+                    
                 </div>
             </div>
             
@@ -333,6 +292,9 @@ if (isset($_POST['valider'])) {
                     else{
                         $tmp = 0;
                     }
+                    if (!isset($questions['vrai'])) {
+                        $tmp = 0;
+                    }
                     $i++;
                 }
             }
@@ -340,7 +302,7 @@ if (isset($_POST['valider'])) {
                 if ($_POST['type'] == "choixS") {
                     $i = 0;
                     while(isset($_POST['reponse'.$i])){
-                        if (!empty($_POST['reponse'.$i])) {
+                        if (!empty($_POST['reponse'.$i]) && !empty($_POST['vrai'])) {
                             $questions['reponse'][$i] = $_POST['reponse'.$i];
                         }
                         else{
@@ -348,7 +310,10 @@ if (isset($_POST['valider'])) {
                         }
                         $i++;
                     }
-                    $questions['vrai'][] = $_POST[$_POST['vrai']];
+                    if ($tmp) {
+                        $questions['vrai'][] = $_POST[$_POST['vrai']];
+                    }
+                    
                 }
             }   
         }
@@ -360,12 +325,109 @@ if (isset($_POST['valider'])) {
             file_put_contents('question.json', $js);
         }
         else{
-            echo "Remplir tous les champs!!!";
+                echo '<script>
+                            alert("Coché une reponse vrai");
+                    </script>';
         }
         
     }
-    else{
-        echo "Remplir tous les champs!!!";
-    }
 }
 ?>
+<script>
+    const inputs = document.getElementsByTagName("input");
+    for(input of inputs){
+        input.addEventListener("keyup",function(e){
+            if(e.target.hasAttribute("error")){
+                var idDivError = e.target.getAttribute("error");
+                document.getElementById(idDivError).innerText = ""
+            }
+        })
+    }
+    const types = document.getElementsByTagName("select");
+    for(type of types){
+        type.addEventListener("keyup",function(e){
+            if(e.target.hasAttribute("error")){
+                var idDivError = e.target.getAttribute("error");
+                document.getElementById(idDivError).innerText = ""
+            }
+        })
+    }
+    const textareas = document.getElementsByTagName("textarea");
+    for(textarea of textareas){
+        textarea.addEventListener("keyup",function(e){
+            if(e.target.hasAttribute("error")){
+                var idDivError = e.target.getAttribute("error");
+                document.getElementById(idDivError).innerText = ""
+            }
+        })
+    }
+    document.getElementById("form-creer").addEventListener("submit",function(e){
+        var error = false;
+        const textareas = document.getElementsByTagName("textarea");
+        for(textarea of textareas){
+            if(textarea.hasAttribute("error")){
+                idDiv = textarea.getAttribute("error");
+                if(!textarea.value){
+                    document.getElementById(idDiv).innerText = "ce champs est obligatoire";
+                    error = true;
+                }
+                else{
+                    document.getElementById(idDiv).innerText = "";
+                }
+            }
+        }
+        const inputs = document.getElementsByTagName("input");
+        for(input of inputs){
+            if(input.hasAttribute("error")){
+                idDivError = input.getAttribute("error");
+                if(!input.value){
+                    document.getElementById(idDivError).innerText = "ce champs est obligatoire";
+                    error = true;
+                }
+                else{
+                    document.getElementById(idDivError).innerText = "";
+                }              
+            }
+        }
+
+        const inputs_rep = document.getElementById("formulaire");
+        const Reps = inputs_rep.getElementsByTagName("div");
+        for(input of Reps){
+            input_div = input.getElementsByTagName("input");
+            divs = input.getElementsByTagName("div");
+            for(inp of input_div){
+                if(inp.hasAttribute("id")){
+                    if(!inp.value){
+                        for(div of divs){
+                            div.innerText = "ce champs est obligatoire";
+                            error = true;
+                        }
+                    }
+                    else{
+                        for(div of divs){
+                            div.innerText = "";
+                        }
+                    }              
+                }
+            }
+        }
+                            
+        const types = document.getElementsByTagName("select");
+        for(type of types){
+            if(type.hasAttribute("error")){
+                idDiv = type.getAttribute("error");
+                if(!type.value){
+                    document.getElementById(idDiv).innerText = "Veuillez Choisir un type";
+                    error = true;
+                }
+                else{
+                    document.getElementById(idDiv).innerText = "";
+                }
+            }
+        }
+        if(error){
+            e.preventDefault();
+            return false; 
+        }               
+    })
+</script>

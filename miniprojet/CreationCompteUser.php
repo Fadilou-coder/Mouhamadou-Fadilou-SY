@@ -25,7 +25,7 @@ session_start();
                         <img id="output" class="output"/>
                     </div>
                 <div class = "forme">
-                    <form action="CreationCompteUser.php" method="POST" enctype="multipart/form-data" id="form-creer">
+                    <form action="" method="POST" enctype="multipart/form-data" id="form-creer">
                         <br/>
                         <label>Prénom</label>
                         <input error="error-1" class="inputText" type="text" name="prenom" placeholder="&nbsp; Aaaaa" value="<?php if(!empty($_POST['prenom'])) echo $_POST['prenom'] ?>"/>
@@ -66,7 +66,7 @@ session_start();
                 for(input of inputs){
                     input.addEventListener("keyup",function(e){
                         if(e.target.hasAttribute("error")){
-                            var idDivError = input.getAttribute("error");
+                            var idDivError = e.target.getAttribute("error");
                             document.getElementById(idDivError).innerText = ""
                         }
                     })
@@ -82,12 +82,13 @@ session_start();
                                     error = true;
                             }
                             
+                            
                         }else{
                                 document.getElementById(idDivError).innerText = "";
                             }
                     }
                     if(error){
-                        e.preventDefaut();
+                        e.preventDefault();
                         return false;
                     }
 

@@ -122,6 +122,46 @@
                 "Abdoulaye Wade",
                 "Abdou Diouf"
             ]
+        },
+        {
+            "question": "Comment s'appelle le programme charg\u00e9 de traduire un code source en binaire ?",
+            "score": "10",
+            "type": "choixS",
+            "reponse": [
+                "Le diffuseur",
+                "Le compilateur",
+                "Le binarisateur"
+            ],
+            "vrai": [
+                "Le compilateur"
+            ]
+        },
+        {
+            "question": "Lequel de ces programmes n'est pas un IDE ?",
+            "score": "10",
+            "type": "choixS",
+            "reponse": [
+                "Code::Blocks",
+                "Bloc-Notes",
+                "Xcode"
+            ],
+            "vrai": [
+                "Bloc-Notes"
+            ]
+        },
+        {
+            "question": "Les quels de ces mots-cl\u00e9s indiquent \u00e0 l'ordinateur de r\u00e9p\u00e9ter des instructions ?",
+            "score": "10",
+            "type": "choixM",
+            "reponse": [
+                "for",
+                "switch",
+                "while"
+            ],
+            "vrai": [
+                "for",
+                "while"
+            ]
         }
     ],
     "nbre-qst": "5"

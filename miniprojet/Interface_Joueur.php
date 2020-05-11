@@ -38,12 +38,6 @@ if (!isset($_GET['score'])) {
     $_GET['score'] = 'top_score';
 }
 
-if (isset($_GET['jeu'])) {
-    $jeu = $_GET['jeu'];
-}
-else {
-    $jeu = 'encours';
-}
 if (isset($_POST['suivant'])) {
         $_SESSION['reponse'][$pageActuelle] = array();
         $_SESSION['reponse'][$pageActuelle][] = "";
@@ -146,7 +140,19 @@ if (isset($_POST['terminer']) || isset($_POST['quitter'])) {
                 }
             }
         }
-    header('location: index.php?lien=user&jeu=terminer&page='.$NbreDePage);
+        if($js['Users'][$ind_user]['pts'] < $_SESSION['score']){
+            $js['Users'][$ind_user]['pts'] = $_SESSION['score'];
+        }
+        if (isset($_SESSION['qst-trouver'])) {
+            for ($i=0; $i < count($_SESSION['qst-trouver']) ; $i++) { 
+                if (isset($_SESSION['qst-trouver'][$i])){
+                    $js['Users'][$ind_user]['qst-trouver'][] = $_SESSION['qst-trouver'][$i];
+                }
+            }
+        }
+        $js = json_encode($js);
+        file_put_contents('fichier.json', $js);
+    header('location: index.php?lien=result');
 }
 if (isset($_POST['reinitialiser'])) {
     $js['Users'][$ind_user]['qst-trouver'] = array();
@@ -183,7 +189,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
             <div class="haut">  
                 <h2> Le Plaisir de Jouer </h2>
             </div>
-            <div class="milieuIJ">
+            <div class="milieuIJoueur">
                 <div class="profil">
                     <div class="avatar">
                             <img class="photo" src=" <?php echo $_SESSION['profil']  ?>" />
@@ -213,8 +219,8 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                 <div class="milieu1IJ">
                     <br/>
                     <div class="score">
-                        <div class="T-score" <?php if ($_GET['score']) echo 'style ="background-color: white"' ?>><a href='index.php?lien=user&score=top_score&jeu=<?php echo $jeu ?>&page=<?php echo $pageActuelle ?>'>Top Score</a></div>
-                        <div class="M-score"  <?php if (!$_GET['score']) echo 'style ="background-color: white"' ?>><a href='index.php?lien=user&score=mn_meilleur&jeu=<?php echo $jeu ?>&page=<?php echo $pageActuelle ?>'>Mon meilleur score</a></div>
+                        <div class="T-score" <?php if ($_GET['score']) echo 'style ="background-color: white"' ?>><a href='index.php?lien=user&score=top_score&page=<?php echo $pageActuelle ?>'>Top Score</a></div>
+                        <div class="M-score"  <?php if (!$_GET['score']) echo 'style ="background-color: white"' ?>><a href='index.php?lien=user&score=mn_meilleur&page=<?php echo $pageActuelle ?>'>Mon meilleur score</a></div>
                         <div class="affich-score" >
                             
                             <center>
@@ -245,40 +251,9 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
 
                         
                             <?php  for ($i = $IndiceDepart; $i <= $IndiceFin  ; $i++) {
-                                        if ($jeu === 'terminer') {
-                                            $tmp = 0;
-                                            echo '<h2><br/>Jeu terminer</h2><br/>Votre Score est '.$_SESSION['score'];
-                                            echo '<div><br/><h2>Vous avez trouvé les questions suivantes:</h2>';
-                                            if (isset($_SESSION['qst-trouver'])) {
-                                                for ($j=0; $j < count($_SESSION['qst-trouver']); $j++) { 
-                                                    if (in_array($qst['Questions'][$_SESSION['qst_a_jouer'][$j]],$_SESSION['qst-trouver'])) {
-                                                        echo $_SESSION['qst-trouver'][$j]['question'].': '.$_SESSION['qst-trouver'][$j]['score'].' pts<br/>';
-                                                        $tmp = 1;
-                                                    }
-                                                }
-                                            }
-                                            if (!$tmp) {
-                                                echo 'Vous avez rien trouvé';
-                                            }
-                                            $tmp = 0;
-                                            echo '<h2>Vous avez faussé les questions suivantes:</h2>';
-                                            if (isset($_SESSION['qst-trouver'])) {
-                                                for ($j=0; $j < $NbreDePage; $j++) { 
-                                                    if (!in_array($qst['Questions'][$_SESSION['qst_a_jouer'][$j]],$_SESSION['qst-trouver'])) {
-                                                        echo $qst['Questions'][$_SESSION['qst_a_jouer'][$j]]['question'].': '.$qst['Questions'][$_SESSION['qst_a_jouer'][$j]]['score'].' pts<br/>';
-                                                        $tmp = 1;
-                                                    }
-                                                }
-                                            }
-                                            if (!$tmp) {
-                                                echo 'Vous avez rien faussé';
-                                            }
-                                            
-                                        }
-                                        else{
                                             if (count($_SESSION['qst_a_jouer'])) {
                                                 echo '<h2><br/>Question '.($i+1).'/'.$totalValeur.': </h2>';
-                                                echo '<h2>'.   $qst['Questions'][$_SESSION['qst_a_jouer'][$i]]['question'].  '</h2>';
+                                                echo '<div class="laqst"><h2>'.   $qst['Questions'][$_SESSION['qst_a_jouer'][$i]]['question'].  '</h2></div>';
                                                 echo '</div><br/><div class="pts">';
                                             
                                             
@@ -325,14 +300,14 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                                             else{
                                                 echo '<h2><br/>Vous avez Touver tous les questions de ce Quizz</h2>';
                                             }
-                                        }
+                                        
                                     }
                             ?>
                         </div>
                         <div class="bouton"> 
                             <form method="POST">
                                 <?php 
-                                    if( $pageActuelle != 1  && $jeu != 'terminer'){
+                                    if( $pageActuelle != 1){
                                         echo '<input class="prec" type="submit" name="prec" value="Précédent">';
                                     }
                                     if( $pageActuelle != $NbreDePage && $NbreDePage){
@@ -340,23 +315,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                                         echo '<input class="quit" type="submit" name="quitter" value="Quitter"/>';
                                     }
                                     else{
-
-                                        if ($jeu === "terminer" && !isset($_POST['rejouer'])) {
-                                            echo '<input class="rejouer" type="submit" name="rejouer" value="Rejouer" />';
-                                            if($js['Users'][$ind_user]['pts'] < $_SESSION['score']){
-                                                $js['Users'][$ind_user]['pts'] = $_SESSION['score'];
-                                            }
-                                            if (isset($_SESSION['qst-trouver'])) {
-                                                for ($i=0; $i < count($_SESSION['qst-trouver']) ; $i++) { 
-                                                    if (isset($_SESSION['qst-trouver'][$i])){
-                                                        $js['Users'][$ind_user]['qst-trouver'][] = $_SESSION['qst-trouver'][$i];
-                                                    }
-                                                }
-                                            }
-                                            $js = json_encode($js);
-                                            file_put_contents('fichier.json', $js);
-                                        }
-                                        elseif($NbreDePage){
+                                        if($NbreDePage){
                                             echo '<input class="Suiv" type="submit" name="terminer" value="Terminer" />';
                                         }
                                         else{
@@ -364,36 +323,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                                         }
 
                                     }
-                                    if (isset($_POST['rejouer'])) {
-                                        
-                                        $_SESSION['score'] = 0;
-                                        $_SESSION['reponse'] = null;
-                                        $js = file_get_contents('fichier.json');
-                                        $js = json_decode($js, true);
-                                        if (isset($js['Users'][$ind_user]['qst-trouver'])) {
-                                            if (count($qst['Questions']) - count($js['Users'][$ind_user]['qst-trouver'])>=$qst['nbre-qst'] ) {
-                                                $j = 0;
-                                            }
-                                            else{
-                                                $j = $qst['nbre-qst']-(count($qst['Questions'])-count($js['Users'][$ind_user]['qst-trouver']));
-                                            }
-                                        }
-                                        else{
-                                            $j = 0;
-                                        }
-                                        $_SESSION['qst_a_jouer'] = array();
-                                        while($j < $qst['nbre-qst']){
-                                            $tmp = rand(0,(count($qst['Questions'])-1));
-                                            if(!isset($js['Users'][$ind_user]['qst-trouver']) || (!in_array($qst['Questions'][$tmp],$js['Users'][$ind_user]['qst-trouver']))) {
-                                               if(!in_array($tmp,$_SESSION['qst_a_jouer'])){
-                                                    $_SESSION['qst_a_jouer'][] = $tmp;
-                                                    $j++;
-                                               }
-                                            }
-                                        }
-                                        $_SESSION['qst-trouver'] = null;
-                                        echo '<script>location.replace("index.php?lien=user");</script>';
-                                    }
+                                    
                                 ?>
                             </form>
                         </div>

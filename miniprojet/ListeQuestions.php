@@ -101,7 +101,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                                     $indice = 1;
                                     for ($i = $IndiceDepart; $i <= $IndiceFin  ; $i++) { 
                                         if(isset($js['Questions'][$i])){
-                                            echo "<br/><br/>".$indice++.".".$js['Questions'][$i]['question']."<br/><br/>";
+                                            echo '<br/><div class = "qst-aff">'.($i+1).'.'.$js["Questions"][$i]["question"].'</div>';
                                             if ($js['Questions'][$i]['type']=="choixS") {
                                                 for ($j=0; $j < count($js['Questions'][$i]['reponse']) ; $j++) { 
                                                     echo '<br/><div class="choix-simple"';
@@ -122,7 +122,7 @@ $IndiceFin = $IndiceDepart + $NbrValeurParPage - 1;
                                                     }
                                                 }
                                                 else {
-                                                    echo '<br/><div class="reponse-text"></div>';
+                                                    echo '<br/><div class="reponse-text"><br/>'.$js['Questions'][$i]['reponse'].'</div>';
                                                 }
                                             }
                                             
