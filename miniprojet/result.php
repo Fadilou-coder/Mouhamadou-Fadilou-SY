@@ -120,7 +120,7 @@ for($i=0; $i < count($js['Users']); $i++) {
                                                 }
                                                 else {
                                                     if(isset($_SESSION['reponse'][$i+1][0])){ 
-                                                        echo '<br/><div class="reponse-text"><br/>'.$_SESSION['reponse'][$i+1][0].'</div>';
+                                                        echo '<div class="reponse-text">'.$_SESSION['reponse'][$i+1][0].'</div>';
                                                     }
                                                 }
                                             }
